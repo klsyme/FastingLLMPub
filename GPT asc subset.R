@@ -13,7 +13,7 @@ paragraphs <-
   ) 
 
 # Prompt for asc1
-#prompt <- "I will give you a paragraph of text on fasting under the heading Excerpt.x. I would like you to annotate the text as follows based on the type of cognitive experience the faster or fasters have during the fast. Code a numerical 1 if the paragraph explicitly mentions fasting leading to the faster or fasters experiencing an altered state of consciousness, such as trance, meditative states, contemplative states, hypnotic states, ecstatic states, or loss of consciousness. Code a numerical 0 if there is no mention of fasting leading to the faster or fasters experiencing an altered state of consciousness as defined above. If an altered state of consciousness is mentioned, but it is not caused by fasting, then code 0. Please do not provide any other information in your response besides the 1 or the 0. Here is the paragraph:"
+prompt <- "I will give you a paragraph of text on fasting under the heading Excerpt.x. I would like you to annotate the text as follows based on the type of cognitive experience the faster or fasters have during the fast. Code a numerical 1 if the paragraph explicitly mentions fasting leading to the faster or fasters experiencing an altered state of consciousness, such as trance, meditative states, contemplative states, hypnotic states, ecstatic states, or loss of consciousness. Code a numerical 0 if there is no mention of fasting leading to the faster or fasters experiencing an altered state of consciousness as defined above. If an altered state of consciousness is mentioned, but it is not caused by fasting, then code 0. Please do not provide any other information in your response besides the 1 or the 0. Here is the paragraph:"
 
 # Generate asc1
 gptCognitive <- paragraphs
