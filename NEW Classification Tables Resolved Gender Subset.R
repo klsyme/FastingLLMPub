@@ -14,8 +14,8 @@ library(writexl)
 library(openxlsx)
 
 #GEN 
-gentf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/gentf.xlsx")
-gendiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gendiff1 remove table.xlsx")
+gentf <- read_excel("Datasets/gentf.xlsx")
+gendiff <- read_excel("Datasets/gendiff1 remove table.xlsx")
 
 #Remove row 205
 gentf <- gentf %>% 
@@ -96,7 +96,7 @@ gentf_updated <- gentf_updated %>%
   )
 
 
-write.xlsx(gentf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gentf_updated.xlsx")
+write.xlsx(gentf_updated, "Datasets/gentf_updated.xlsx")
 
 ##Men
 # Function to calculate precision, recall, and F1-score
