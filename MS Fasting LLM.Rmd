@@ -149,6 +149,24 @@ Figure 4 compares the classification performance (precision in blue, recall in r
 
 
 ```{r, echo=FALSE, fig.height=8, fig.width=10, include=TRUE}
+
+var_dict <- c(
+  "Asc" = "Altered states",
+  "Dei" = "Discomfort/illness",
+  "Gm" = "Group membership",
+  "Lap" = "Time lapse",
+  "Lead" = "Leader",
+  "Mat" = "Sexual abstention",
+  "Rel" = "Religiosity",
+  "Sca" = "Sacrifice & charity",
+  "Se" = "Social/economic",
+  "Sw" = "Social withdrawal",
+  "Vk" = "Visions & knowledge",
+  "Man" = "Man",
+  "Woman" = "Woman",
+  "Both" = "Both genders"
+)
+
 # List of datasets and variables for batch processing
 datasets <- list(
   list(name = "Lead", df = leadup, vars = c("leader.r", "lead1", "lead2"), target = "leader_updated"),
@@ -161,7 +179,13 @@ datasets <- list(
   list(name = "Sw", df = swtf_updated, vars = c("sw", "sw2", "sw3"), target = "sw_updated"),
   list(name = "Mat", df = mattf_updated, vars = c("mat", "mat1", "mat2"), target = "mat_updated"),
   list(name = "Rel", df = reltf_updated, vars = c("rel", "rel2", "rel3"), target = "rel_updated"),
-  list(name = "Gm", df = gmtf_updated, vars = c("gm", "gm1", "gm2"), target = "gm_updated")
+  list(name = "Gm", df = gmtf_updated, vars = c("gm", "gm1", "gm2"), target = "gm_updated"),
+  
+  # New stuff
+  
+  list(name = "Man", df = gentf_updated, vars = c("genderm.r", "genm1", "genm2"), target = "genm_updated"),
+  list(name = "Woman", df = gentf_updated, vars = c("genderw.r", "genw1", "genw2"), target = "genw_updated"),
+  list(name = "Both", df = gentf_updated, vars = c("genderb.r", "genb1", "genb2"), target = "genb_updated")
 )
 
 # Create an empty list to store results
@@ -194,9 +218,16 @@ for (dataset in datasets) {
 final_metrics <- bind_rows(all_metrics)
 
 # Convert to long format for ggplot
-final_metrics_long <- final_metrics %>%
-  pivot_longer(cols = c("Precision", "Recall", "F1_Score"), 
-               names_to = "Metric", values_to = "Value")
+final_metrics_long <- 
+  final_metrics %>%
+  pivot_longer(
+    cols = c("Precision", "Recall", "F1_Score"), 
+    names_to = "Metric", values_to = "Value"
+  ) |> 
+  mutate(
+    Dataset = var_dict[Dataset],
+    Dataset = factor(Dataset, levels = var_dict)
+  )
 
 p <- ggplot(final_metrics_long, aes(x = Method, y = Value, fill = Metric)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -222,58 +253,59 @@ print(p)
 ```{r, echo=FALSE, fig.height=8, fig.width=10, include=TRUE}
 
 # Initialize an empty list to store all metric results
-metrics_list <- list()
-
-# List of datasets and variables for batch processing
-gdatasets <- list(
-  list(name = "Man", df = gentf_updated, vars = c("genderm.r", "genm1", "genm2"), target = "genm_updated"),
-  list(name = "Woman", df = gentf_updated, vars = c("genderw.r", "genw1", "genw2"), target = "genw_updated"),
-  list(name = "Both", df = gentf_updated, vars = c("genderb.r", "genb1", "genb2"), target = "genb_updated")
-)
-
-# Loop through each dataset and compute metrics
-for (dataset in gdatasets) {
-  df <- dataset$df
-  vars <- dataset$vars
-  target <- dataset$target
-  name <- dataset$name  # Gender category (Man, Woman, Both)
-
-  # Compute precision, recall, and F1-score
-  metrics <- data.frame(
-    Model = c("Human", "GPT-1", "GPT-2"),
-    Precision = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[1]),
-    Recall = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[2]),
-    F1_Score = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[3])
-  )
-
-  # Add a column for gender category
-  metrics$Gender_Category <- name
-
-  # Store in the list
-  metrics_list[[name]] <- metrics
-}
-
-# Combine all datasets into a single data frame
-metrics_data <- bind_rows(metrics_list)
-
-# Convert from wide to long format for ggplot
-metrics_long <- pivot_longer(metrics_data, cols = c(Precision, Recall, F1_Score), 
-                             names_to = "Metric", values_to = "Value")
-
-# Plot grouped bar chart
-p2 <- ggplot(metrics_long, aes(x = Model, y = Value, fill = Metric)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  facet_wrap(~ Gender_Category) +  # Separate plots for Man, Woman, Both
-  labs(title = "Precision, Recall, and F1 Score by Gender Category",
-       x = "Model", y = "Score", fill = "Metric") +
-  theme_minimal() +
-  scale_fill_manual(values = c("Precision" = "blue", "Recall" = "red", "F1_Score" = "green")) +
-  theme(text = element_text(size = 14))
-
-# Display the plot
-print(p2)
+# metrics_list <- list()
+# 
+# # List of datasets and variables for batch processing
+# gdatasets <- list(
+#   list(name = "Man", df = gentf_updated, vars = c("genderm.r", "genm1", "genm2"), target = "genm_updated"),
+#   list(name = "Woman", df = gentf_updated, vars = c("genderw.r", "genw1", "genw2"), target = "genw_updated"),
+#   list(name = "Both", df = gentf_updated, vars = c("genderb.r", "genb1", "genb2"), target = "genb_updated")
+# )
+# 
+# # Loop through each dataset and compute metrics
+# for (dataset in gdatasets) {
+#   df <- dataset$df
+#   vars <- dataset$vars
+#   target <- dataset$target
+#   name <- dataset$name  # Gender category (Man, Woman, Both)
+# 
+#   # Compute precision, recall, and F1-score
+#   metrics <- data.frame(
+#     Model = c("Human", "GPT-1", "GPT-2"),
+#     Precision = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[1]),
+#     Recall = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[2]),
+#     F1_Score = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[3])
+#   )
+# 
+#   # Add a column for gender category
+#   metrics$Gender_Category <- name
+# 
+#   # Store in the list
+#   metrics_list[[name]] <- metrics
+# }
+# 
+# # Combine all datasets into a single data frame
+# metrics_data <- bind_rows(metrics_list)
+# 
+# # Convert from wide to long format for ggplot
+# metrics_long <- pivot_longer(metrics_data, cols = c(Precision, Recall, F1_Score), 
+#                              names_to = "Metric", values_to = "Value")
+# 
+# # Plot grouped bar chart
+# p2 <- ggplot(metrics_long, aes(x = Model, y = Value, fill = Metric)) +
+#   geom_bar(stat = "identity", position = "dodge") +
+#   facet_wrap(~ Gender_Category) +  # Separate plots for Man, Woman, Both
+#   labs(title = "Precision, Recall, and F1 Score by Gender Category",
+#        x = "Model", y = "Score", fill = "Metric") +
+#   theme_minimal() +
+#   scale_fill_manual(values = c("Precision" = "blue", "Recall" = "red", "F1_Score" = "green")) +
+#   theme(text = element_text(size = 14))
+# 
+# # Display the plot
+# print(p2)
 
 ```
+
 ## GPT Performance on Unresolved Annotations
 
 The heatmap displayed in Figure 5 is a heatmap of three-way inter-rater reliability and percent agreement metrics comparing two human annotators (Coder 1 and Coder 2) to GPT. Agreement between the two human coders was generally high across most variables, with percent agreement ranging from 67.3% (Gender) to 98.6% (Sacrifice and Charity), and Gwet’s AC1 indicating substantial to near-perfect agreement across variables (range: 0.57–0.99). Cohen’s Kappa was lower for several variables: Sexual Abstinence (0.07), Group Membership (0.11), and Altered State of Consciousness (0.19), reflecting the use of slightly different heuristics to code these variables (See Discussion).
@@ -287,6 +319,7 @@ The overall performance of GPT is strong, pariculrly considering that the unreso
 knitr::include_graphics("final_table.png")
 
 ```
+
 # Discussion
 
 Our findings demonstrate the capability of GPT-4o to reliably annotate culturally diverse ethnographic data, outperform humans on select variables, and enhance overall annotation accuracy following a human-in-the-loop workflow. In this iterative approach, human expertise and AI-generated insights are combined to refine construct definitions and improve coding reliability [@wu2022]. In finding that GPT-4o can accurately index theoretically relevant content of ethnographic texts from societies that are underrepresented in the human behavioral sciences [@henrich2010; @apicella2020], LLMs offers are a promising tool for accelerating data generation and theory development in cross-cultural research. We propose a novel, scalable application of LLMs in cross-cultural research: the generation of units of culture, in which each coded instance—derived from either deductive or inductive labels, such as cognitive states, ritualized behaviors, biological conditions, or social outcomes—functions as a minimal unit of analysis, like a pixel in a digital image or a stone in a mosaic. When aggregated and modeled statistically, these instances can yield high-resolution ‘snapshots’ of cultural systems, revealing latent patterns in belief, behavior, and social organization. 
