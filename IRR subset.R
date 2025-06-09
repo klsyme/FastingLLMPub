@@ -3,8 +3,8 @@ library(irrCAC)
 library(readxl)
 
 #GENDER IRR
-gender <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/gen2irrx2.xlsx")
-gender2 <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gentf_updated.xlsx")
+gender <- read_excel("Datasets/gen2irrx2.xlsx")
+gender2 <- read_excel("Datasets/gentf_updated.xlsx")
 
 #Remove row 205
 gender <- gender %>% 
@@ -24,7 +24,7 @@ kappa2(gen2irr[, c("gen1", "gen2")], weight = "equal")
 
 
 #LEADER IRR
-lead <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/lead2irrx2.xlsx")
+lead <- read_excel("Datasets/lead2irrx2.xlsx")
 
 #Remove row 205
 lead <- lead %>% 
@@ -43,7 +43,7 @@ gwet.ac1.raw(lead2irr, weights = "unweighted")
 kappa2(lead2irr[, c("lead1", "lead2")], weight = "equal")
 
 #LAP IRR
-lap <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/lap2irrx2.xlsx")
+lap <- read_excel("Datasets/lap2irrx2.xlsx")
 
 #Remove row 205
 lap <- lap %>% 
@@ -63,7 +63,7 @@ kappa2(lap2irr[, c("lap1", "lap2")], weight = "equal")
 
 
 #ASC IRR
-asc <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/asc3IRR.xlsx")
+asc <- read_excel("Datasets/asc3IRR.xlsx")
 
 #Remove row 205
 asc <- asc %>% 
@@ -80,7 +80,7 @@ gwet.ac1.raw(ascirr2, weights = "unweighted")
 kappa2(ascirr2[, c("asc2", "asc3")], weight = "equal")
 
 #VK IRR
-vk <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/vk2IRR.xlsx")
+vk <- read_excel("Datasets/vk2IRR.xlsx")
 
 #Remove row 205
 vk <- vk %>% 
@@ -99,7 +99,7 @@ gwet.ac1.raw(vk2irr, weights = "unweighted")
 kappa2(vk2irr[, c("vk1", "vk2")], weight = "equal")
 
 #DEI IRR
-dei <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/dei2IRR.xlsx")
+dei <- read_excel("Datasets/dei2IRR.xlsx")
 
 #Remove row 205
 dei <- dei %>% 
@@ -118,7 +118,7 @@ gwet.ac1.raw(dei2irr, weights = "unweighted")
 kappa2(dei2irr[, c("dei1", "dei2")], weight = "equal")
 
 #SE IRR
-se <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/se2IRR.xlsx")
+se <- read_excel("Datasets/se2IRR.xlsx")
 
 #Remove row 205
 se <- se %>% 
@@ -137,7 +137,7 @@ gwet.ac1.raw(se2irr, weights = "unweighted")
 kappa2(se2irr[, c("se1", "se2")], weight = "equal")
 
 #SCA IRR
-sca <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/sca2IRR.xlsx")
+sca <- read_excel("Datasets/sca2IRR.xlsx")
 
 #Remove row 205
 sca <- sca %>% 
@@ -156,7 +156,7 @@ gwet.ac1.raw(sca2irr, weights = "unweighted")
 kappa2(sca2irr[, c("sca1", "sca2")], weight = "equal")
 
 #SW IRR
-sw <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/sw3IRR.xlsx")
+sw <- read_excel("Datasets/sw3IRR.xlsx")
 
 #Remove row 205
 sw <- sw %>% 
@@ -174,7 +174,7 @@ gwet.ac1.raw(sw2irr, weights = "unweighted")
 kappa2(sw2irr[, c("sw2", "sw3")], weight = "equal")
 
 #MAT IRR
-mat <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/mat2irr.xlsx")
+mat <- read_excel("Datasets/mat2irr.xlsx")
 
 #Remove row 205
 mat <- mat %>% 
@@ -193,7 +193,7 @@ gwet.ac1.raw(mat2irr, weights = "unweighted")
 kappa2(mat2irr[, c("mat1", "mat2")], weight = "equal")
 
 #REL IRR
-rel <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/relx4.xlsx")
+rel <- read_excel("Datasets/relx4.xlsx")
 
 #Remove row 205
 rel <- rel %>% 
@@ -212,7 +212,7 @@ gwet.ac1.raw(rel2irr, weights = "unweighted")
 kappa2(rel2irr[, c("rel2", "rel3")], weight = "equal")
 
 #GM IRR
-gm <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/gm3irr.xlsx")
+gm <- read_excel("Datasets/gm3irr.xlsx")
 
 #Remove row 205
 gm <- gm %>% 

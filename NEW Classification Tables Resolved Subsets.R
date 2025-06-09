@@ -16,9 +16,9 @@ library(openxlsx)
 
 #LEAD
 ##leadup was merged in chatGPT
-lead <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/lead2irrx2.xlsx")
-leaddiff1 <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/leaddiff1 remove table.xlsx")
-leadup <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/lead_updated.xlsx")
+lead <- read_excel("Datasets/lead2irrx2.xlsx")
+leaddiff1 <- read_excel("Datasets/leaddiff1 remove table.xlsx")
+leadup <- read_excel("Datasets/lead_updated.xlsx")
 
 #Remove row 205
 leadup <- leadup %>% 
@@ -101,8 +101,8 @@ f1_scores %>% select(f1_leader_r)
 
 
 ##LAP
-laptf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/laptf.xlsx")
-lapdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/lapdiff1 remove table.xlsx")
+laptf <- read_excel("Datasets/laptf.xlsx")
+lapdiff <- read_excel("Datasets/lapdiff1 remove table.xlsx")
 
 #Remove row 205
 laptf <- laptf %>% 
@@ -149,7 +149,7 @@ laptf_updated <- laptf %>%
   mutate(lap_updated = coalesce(lap_updated, time_lapse.r)) # Update lap_updated with time_lapse.r where applicable
 
 # Save the updated dataset with the new lap_updated column
-write.xlsx(laptf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/laptf_updated.xlsx")
+write.xlsx(laptf_updated, "Datasets/laptf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'laptf_updated.xlsx'.")
 
@@ -229,8 +229,8 @@ print(precision_recall_f1)
 
 
 #ASC
-asctf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/asctf.xlsx")
-ascdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/ascdiff2 remove table.xlsx")
+asctf <- read_excel("Datasets/asctf.xlsx")
+ascdiff <- read_excel("Datasets/ascdiff2 remove table.xlsx")
 
 #Remove row 205
 asctf <- asctf %>% 
@@ -273,7 +273,7 @@ asctf_updated <- asctf %>%
   mutate(asc_updated = coalesce(asc_updated, asc)) # Update asc_updated with asc where applicable
 
 # Save the updated dataset with the new asc_updated column
-write.xlsx(asctf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/asctf_updated.xlsx")
+write.xlsx(asctf_updated, "Datasets/asctf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'asctf_updated.xlsx'.")
 
@@ -315,8 +315,8 @@ metrics <- data.frame(
 print(metrics)
 
 #VK
-vktf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/vktf.xlsx")
-vkdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/vkdiff1 remove table.xlsx")
+vktf <- read_excel("Datasets/vktf.xlsx")
+vkdiff <- read_excel("Datasets/vkdiff1 remove table.xlsx")
 
 #Remove row 205
 vktf <- vktf %>% 
@@ -359,7 +359,7 @@ vktf_updated <- vktf %>%
   mutate(vk_updated = coalesce(vk_updated, vk)) # Update vk_updated with vk where applicable
 
 # Save the updated dataset with the new vk_updated column
-write.xlsx(vktf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/vktf_updated.xlsx")
+write.xlsx(vktf_updated, "Datasets/vktf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'vktf_updated.xlsx'.")
 
@@ -393,8 +393,8 @@ vk_metrics <- data.frame(
 print(vk_metrics)
 
 #DEI
-deitf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/deitf.xlsx")
-deidiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/deidiff1 remove table.xlsx")
+deitf <- read_excel("Datasets/deitf.xlsx")
+deidiff <- read_excel("Datasets/deidiff1 remove table.xlsx")
 
 #Remove row 205
 deitf <- deitf %>% 
@@ -441,7 +441,7 @@ deitf_updated <- deitf %>%
   mutate(dei_updated = coalesce(dei_updated, dei)) # Update dei_updated with dei where applicable
 
 # Save the updated dataset with the new dei_updated column
-write.xlsx(deitf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/deitf_updated.xlsx")
+write.xlsx(deitf_updated, "Datasets/deitf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'deitf_updated.xlsx'.")
 
@@ -475,8 +475,8 @@ dei_metrics <- tibble(
 print(dei_metrics)
 
 #SE
-setf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/setf.xlsx")
-sediff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/sediff1 remove table.xlsx")
+setf <- read_excel("Datasets/setf.xlsx")
+sediff <- read_excel("Datasets/sediff1 remove table.xlsx")
 
 #Remove row 205
 setf <- setf %>% 
@@ -519,7 +519,7 @@ setf_updated <- setf %>%
   mutate(se_updated = coalesce(se_updated, se)) # Update se_updated with se where applicable
 
 # Save the updated dataset with the new se_updated column
-write.xlsx(setf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/setf_updated.xlsx.xlsx")
+write.xlsx(setf_updated, "Datasets/setf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'setf_updated.xlsx'.")
 
@@ -549,8 +549,8 @@ se_metrics <- bind_rows(metrics_se, metrics_se1, metrics_se2) %>%
 print(se_metrics)
 
 #SCA
-scatf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/scatf.xlsx")
-scadiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/scadiff1 remove table.xlsx")
+scatf <- read_excel("Datasets/scatf.xlsx")
+scadiff <- read_excel("Datasets/scadiff1 remove table.xlsx")
 
 #Remove row 205
 scatf <- scatf %>% 
@@ -593,7 +593,7 @@ scatf_updated <- scatf %>%
   mutate(sca_updated = coalesce(sca_updated, sca)) # Update sca_updated with sca where applicable
 
 # Save the updated dataset with the new sca_updated column
-write.xlsx(scatf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/scatf_updated.xlsx")
+write.xlsx(scatf_updated, "Datasets/scatf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'scatf_updated.xlsx'.")
 
@@ -627,8 +627,8 @@ results_scatf <- bind_rows(
 print(results_scatf)
 
 #SW
-swtf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/swtf.xlsx")
-swdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/swdiff1 remove table.xlsx")
+swtf <- read_excel("Datasets/swtf.xlsx")
+swdiff <- read_excel("Datasets/swdiff1 remove table.xlsx")
 
 #Remove row 205
 swtf <- swtf %>% 
@@ -671,7 +671,7 @@ swtf_updated <- swtf %>%
   mutate(sw_updated = coalesce(sw_updated, sw)) # Update sw_updated with sw where applicable
 
 # Save the updated dataset with the new sw_updated column
-write.xlsx(swtf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/swtf_updated.xlsx")
+write.xlsx(swtf_updated, "Datasets/swtf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'swtf_updated.xlsx'.")
 
@@ -705,8 +705,8 @@ results <- data.frame(
 print(results)
 
 #MAT
-mattf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/mattf.xlsx")
-matdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/matdiff1 remove table.xlsx")
+mattf <- read_excel("Datasets/mattf.xlsx")
+matdiff <- read_excel("Datasets/matdiff1 remove table.xlsx")
 
 #Remove row 205
 mattf <- mattf %>% 
@@ -749,7 +749,7 @@ mattf_updated <- mattf %>%
   mutate(mat_updated = coalesce(mat_updated, mat)) # Update mat_updated with mat where applicable
 
 # Save the updated dataset with the new mat_updated column
-write.xlsx(mattf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/mattf_updated.xlsx.xlsx")
+write.xlsx(mattf_updated, "Datasets/mattf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'mattf_updated.xlsx'.")
 
@@ -784,8 +784,8 @@ print(results_mat)
 
 
 #REL
-reltf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/reltf.xlsx")
-reldiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/reldiff2 remove table.xlsx")
+reltf <- read_excel("Datasets/reltf.xlsx")
+reldiff <- read_excel("Datasets/reldiff2 remove table.xlsx")
 
 #Remove row 205
 reltf <- reltf %>% 
@@ -828,7 +828,7 @@ reltf_updated <- reltf %>%
   mutate(rel_updated = coalesce(rel_updated, rel)) # Update rel_updated with rel where applicable
 
 # Save the updated dataset with the new rel_updated column
-write.xlsx(reltf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/reltf_updated.xlsx")
+write.xlsx(reltf_updated, "Datasets/reltf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'reltf_updated.xlsx'.")
 
@@ -864,8 +864,8 @@ results_rel <- tibble(
 print(results_rel)
 
 #GM
-gmtf <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/GPT Analyses Output/gmtf.xlsx")
-gmdiff <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gmdiff1 remove table.xlsx")
+gmtf <- read_excel("Datasets/gmtf.xlsx")
+gmdiff <- read_excel("Datasets/gmdiff1 remove table.xlsx")
 
 #Remove row 205
 gmtf <- gmtf %>% 
@@ -908,7 +908,7 @@ gmtf_updated <- gmtf %>%
   mutate(gm_updated = coalesce(gm_updated, gm)) # Update gm_updated with gm where applicable
 
 # Save the updated dataset with the new gm_updated column
-write.xlsx(gmtf_updated, "/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gmtf_updated.xlsx")
+write.xlsx(gmtf_updated, "Datasets/gmtf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'gmtf_updated.xlsx'.")
 
