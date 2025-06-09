@@ -63,7 +63,7 @@ gentf_updated <- gentf %>%
   mutate(gen_updated = coalesce(gen_updated, gender.r)) # Update gen_updated with gender.r where applicable
 
 # Save the updated dataset with the new gen_updated column
-write.xlsx(gentf_updated, "gentf_updated.xlsx")
+write.xlsx(gentf_updated, "Datasets/gentf_updated.xlsx")
 
 #print("Merging and updating completed. The updated file is saved as 'gentf_updated.xlsx'.")
 
