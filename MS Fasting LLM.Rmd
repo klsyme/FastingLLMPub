@@ -12,6 +12,8 @@ output:
     fig_caption: true
     keep_tex: true
     latex_engine: xelatex
+  word_document:
+    toc: true
 bibliography: BibFastingLLM.bib
 csl: nature.csl
 ---
@@ -37,6 +39,7 @@ library(readxl)
 library(gt)
 library(irr)
 library(irrCAC)
+library(kableExtra)
 
 # Load dataset directly into R Markdown
 leadup <- read_excel("Datasets/lead_updated.xlsx")
@@ -51,30 +54,30 @@ set.seed(1234)
 
 # Abstract
 
-Large language models (LLMs) can accelerate theory testing and development in the human behavioral sciences. We evaluate GPT-4.0 Turbo's ability to generate binary codes from ethnographic texts on ritual fasting, comparing its outputs to a human consensus subset (n = 225) and to annotations from two independent coders on a larger dataset (n = 1,015). GPT matched or exceeded human performance for well-defined variables and identified systematic omissions in human coding. These labels—capturing constructs such as leadership, sexual abstinence, and resource sacrifice—function as minimal analytic 'units', analogous to pixels in an image. By operationalizing constructs through a binary annotation scheme, LLMs can generate cultural datasets that are well-suited for statistical modeling and comparative analysis. The automation of ethnographic annotation holds great potential for enhancing the speed and scope of cross-cultural research. Realizing this, however, requires ongoing human oversight to define constructs and uphold ethical standards in interpretation and application.
+Large language models (LLMs) can accelerate theory testing and development in the human behavioral sciences. We evaluate GPT-4's ability to generate binary codes from ethnographic texts on ritual fasting, comparing its outputs to a human consensus subset (n = 225) and to annotations from two independent coders on a larger dataset (n = 1,015). GPT matched or exceeded human performance for well-defined variables and identified systematic omissions in human coding. These labels—capturing constructs such as leadership, sexual abstinence, and resource sacrifice—function as minimal analytic 'units', analogous to pixels in an image. By operationalizing constructs through a binary annotation scheme, LLMs can generate cultural datasets that are well-suited for statistical modeling and comparative analysis. The automation of ethnographic annotation holds great potential for enhancing the speed and scope of cross-cultural research. Realizing this, however, requires ongoing human oversight to define constructs and uphold ethical standards in interpretation and application.
 
 # Introduction
 
 With recent advances in large language models (LLMs), cross-cultural researchers can now investigate human psychology, behavior, and cultural diversity at unprecedented scale [@bail2023; @dubourg2024]. Here, we introduce a conceptual and methodological framework for using LLMs to generate and analyze ethnographic texts for presence–absence data based on theoretical operationalizations that we call 'units of analysis'—binary-coded representations of culture and behavior. These labels—capturing a diversity of constructs such as leadership, sexual abstinence, and resource sacrifice—function as minimal analytic units, analogous to pixels in an image. 
 
-By prompting LLMs with operationalized variables, researchers can automate high-precision annotation of across expansive ethnographic and historical corpora, accelerating the generation of structured representations of culture and behavior [@rathje2024]. When used within a human-in-the-loop framework [@wu2022], LLMs offer a scalable approach to extracting data from unstructured texts, enabling systematic cross-cultural analysis across domains such as cooperation, health, religion, politics, environmental interaction, and ritual practice. We demonstrate this approach by applying GPT-4o to annotate ethnographic descriptions of ritual fasting, showing how LLMs can enhance the efficiency, scale, and theoretical utility of cultural analysis. While our focus is on evolutionary-ecological theories of fasting, the method is broadly applicable to diverse theoretical frameworks.
+By prompting LLMs with operationalized variables, researchers can automate high-precision annotation of across expansive ethnographic and historical corpora, accelerating the generation of structured representations of culture and behavior [@rathje2024]. When used within a human-in-the-loop framework [@wu2022], LLMs offer a scalable approach to extracting data from unstructured texts, enabling systematic cross-cultural analysis across domains such as cooperation, health, religion, politics, environmental interaction, and ritual practice. We demonstrate this approach by applying GPT-4 model (gpt-4-1106-preview) to annotate ethnographic descriptions of ritual fasting, showing how LLMs can enhance the efficiency, scale, and theoretical utility of cultural analysis. While our focus is on evolutionary-ecological theories of fasting, the method is broadly applicable to diverse theoretical frameworks.
 
-Like other LLMs, GPT can be guided through natural language prompts, in a manner akin to human instruction, to perform annotation tasks [@rietz2020]; and, social scientists are increasingly adopting these models for this purpose [@balt2025; @tai2024]. GPT has been found to outperform crowd-sourced annotators in both speed and accuracy [@gilardi2023], and GPT models (e.g., GPT-3.5, GPT-4, GPT-4 Turbo) can accurately identify psychological constructs—including sentiment, discrete emotions, offensiveness, and moral content—across diverse text types and languages [@rathje2024]. Although some evidence suggests that GPT-4o struggles to represent nuanced cultural values in free-response text when prompted [@masoud2025], this limitation is potentially less consequential when the model is used to annotate ethnographic texts and the source data itself encodes the relevant cultural context.
+Like other LLMs, GPT can be guided through natural language prompts, in a manner akin to human instruction, to perform annotation tasks [@rietz2020]; and, social scientists are increasingly adopting these models for this purpose [@balt2025; @tai2024]. GPT has been found to outperform crowd-sourced annotators in both speed and accuracy [@gilardi2023], and GPT models (e.g., GPT-3.5, GPT-4, GPT-4 Turbo) can accurately identify psychological constructs—including sentiment, discrete emotions, offensiveness, and moral content—across diverse text types and languages [@rathje2024]. Although prior research suggests that GPT-4 shows limitations in representing nuanced cultural values in free-response text when prompted [@masoud2025], such limitations may be less consequential in our context, where the model is used to annotate ethnographic texts and the cultural context is embedded in the source material.
 
 Human culture consists of socially transmitted ideas, behaviors, and institutions that operate across multiple levels, shaping individual actions, interpersonal relationships, and societal structures. [@cavalli1981]. Ethnographic texts are a critical source of knowledge of human cultural diversity. LLMs offer a powerful means of identifying and quantifying the form and function of cultural practices by extracting structured data from narrative accounts. Each coded instance—such as a reference to sharing norms, ritual performance, or social roles—represents as a minimal unit of analysis, like a pixel in a digital image. When aggregated and statistically modeled, these data points yield 'snapshots' of cultural systems.
 
 Cross-cultural analysis is essential for distinguishing between universal and culturally specific patterns of behavior, as well as for identifying the ecological, social, and psychological conditions under which particular practices emerge [@ember1998]. Ethnographic texts, as descriptions of the human experience produced by trained anthropologists, offer a window into human cognitions, behaviors, and social systems across diverse cultures over time and space. Although even trained ethnographers are not immune from observational biases, and their perceptions are shaped by their own cultures [@ember1991], their accounts remain essential for testing theories in the human behavioral sciences [@ember2009]. Researchers draw on ethnographic databases to investigate a wide range of topics, including the form and function of leadership [@garfield2020], the ecological predictors of food sharing [@ember2018our], the social conditions of suicidal behavior [@syme2016], and the function of violent rituals, such as pre-war rites [@sosis2007]. Researchers can now leverage large language models to accelerate the speed and scale of ethnographic annotation, thereby expanding the empirical scope for modeling the cultural, ecological, and biological dynamics, that shape human behavior and advancing theory in the behavioral sciences.
 
-To demonstrate the utility of this approach, we focus on deliberate fasting: the intentional abstention from food and drink that alters an individual’s nutritional state [@placek2021]. While often associated with religious observance, such as Ramadan, fasting also appears in diverse cultural contexts, including rites of passage (e.g., Native American vision quests), health practices, and ascetic traditions. These practices vary in frequency, duration, social structure, and physiological consequence. Theories relevant to the function of fasting include: health models [@longo2021], ecological models [@rad2023], and social signaling models, such as group commitment [@henrich2009; @irons2001] and status differentiation [@singh2020]. We apply LLM-based annotation to examine ethnographic descriptions of fasting across cultures, allowing systematic analysis of theoretical predictions of the co-variation of biological, ecological, and social variables. 
+To demonstrate the utility of this approach, we focus on deliberate fasting: the intentional abstention from food and drink that alters an individual’s nutritional state [@placek2021]. While often associated with religious observance, such as Ramadan, fasting also appears in diverse cultural contexts, including rites of passage, health practices, and mourning rituals. These practices vary in frequency, duration, social structure, and physiological consequence. Theories relevant to the function of fasting include: health models [@longo2021], ecological models [@rad2023], and social signaling models, such as group commitment [@henrich2009; @irons2001] and status differentiation [@singh2020]. We apply LLM-based annotation to examine ethnographic descriptions of fasting across cultures, allowing systematic analysis of theoretical predictions of the co-variation of biological, ecological, and social variables. 
 
 # Results
 
 ## Geographic Distribution of Cultures and Texts
 
-The dataset comprises 1,236 paragraphs discussing ritual fasting across 56 societies in the context of a wide range of social and religious contexts, including Islamic and Christian traditions, pre-war and hunting rituals, and rites of passage. Accounts of fasting were identified across all major geographic regions and subsistence practices (see Fig. 1). There is extensive coverage of fasting among Serbs and Amhara, each in the context of Orthodox Christianity, as well as among Indigenous North American societies such as the Ojibwa, Tlingit, and Blackfoot, whose accounts frequently reference the vision quest, a rite of passage. By contrast, there were fewer texts from societies in Middle America and the Caribbean and Oceania.
+The dataset comprises 1,240 paragraphs discussing ritual fasting across 56 societies in the context of a wide range of social and religious contexts, including Islamic and Christian traditions, pre-war and hunting rituals, and rites of passage. Accounts of fasting were identified across all major geographic regions and subsistence practices (see Fig. 1). There is extensive coverage of fasting among Serbs and Amhara, each in the context of Orthodox Christianity, as well as among Indigenous North American societies such as the Ojibwa, Tlingit, and Blackfoot, whose accounts frequently reference a rite of passage associated with vision quests. By contrast, there were fewer texts from societies in 'Middle America' and 'the Caribbean and Oceania'.
 
 
-```{r fig-map, echo=FALSE, out.width='100%', fig.cap='World Map showing 56 cultures included in the study'}
+```{r fig-map, echo=FALSE, out.width='100%', fig.align='left', fig.cap="Figure 1. Geographic distribution of 56 cultures from the HRAF Fasting Dataset, categorized by primary subsistence type. All cultures are drawn from the Human Relations Area Files (HRAF) Probability Sample Files, except for the Khoi and Warao (see Methods). Symbol size indicates the number of ethnographic paragraphs available for each culture."}
 knitr::include_graphics("World Map of 56 Cultures.png")
 ```
 ## Inter-Rater Reliability Between GPT and Human Coders
@@ -85,30 +88,28 @@ Percent agreement between GPT and human annotators was generally high, ranging f
 
 Cohen’s Kappa coefficients were relatively low despite high Gwet’s AC1 coefficients for the following variables: Time Lapse (.34); Discomfort, Exhaustion, and Illness (.39); Sacrifice and Charity (.19); Religiosity (.21); and Group Membership (.24). This discrepancy reflects the high agreement for 0’s (absence) but low agreement for 1’s (presence) (see next section), which Kappa penalizes.
 
-##Retest Reliability
+## Retest Reliability
 
 GPT’s performance across two rounds showed uniformly high agreement (range: 92.9%–99.6%), indicating consistent model behavior. Time Lapse (92.9%), Discomfort, Exhaustion, and Illness (94.2%), Leader (94.7%), showed more variation between the two rounds, and Social and Economic Costs compared to the other variables (see Discussion). Altered State of Consciousness (99.1%), Visions and Knowledge (99.1%), Social Withdrawal (99.6%), and Group Membership (99.1%) had the highest retest reliability with near perfect agreement.
 
-```{r, echo=FALSE,}
+```{r table-reliability, echo=FALSE}
 # Helper function to calculate IRR stats
 get_irr_stats <- function(file, col1, col2, col3, varname) {
-  df <- read_excel(file) %>% 
-    dplyr::select(all_of(c(col1,col2,col3))) %>% 
-    mutate(across(1:3,as.numeric)) %>% 
-    slice(-205)
-  
-  #return(df)
-  
+  df <- readxl::read_excel(file) %>% 
+    dplyr::select(all_of(c(col1, col2, col3))) %>% 
+    dplyr::mutate(across(1:3, as.numeric)) %>% 
+    dplyr::slice(-205)
+
   # Agreement with human annotators
   irr1 <- df[1:2]
-  agree1 <- agree(irr1)$value 
-  ac1_1 <- as.numeric(gwet.ac1.raw(irr1, weights = "unweighted")$est$coeff.val[1])
-  kappa_1 <- kappa2(irr1, weight = "equal")$value
-  
+  agree1 <- irr::agree(irr1)$value 
+  ac1_1 <- as.numeric(irrCAC::gwet.ac1.raw(irr1, weights = "unweighted")$est$coeff.val[1])
+  kappa_1 <- irr::kappa2(irr1, weight = "equal")$value
+
   # Retest reliability
   irr2 <- df[2:3]
-  agree2 <- agree(irr2)$value 
-  
+  agree2 <- irr::agree(irr2)$value 
+
   return(data.frame(
     Variable = varname,
     Agreement = round(agree1, 1),
@@ -119,7 +120,7 @@ get_irr_stats <- function(file, col1, col2, col3, varname) {
 }
 
 # Collect stats for each variable
-irr_table <- bind_rows(
+irr_table <- dplyr::bind_rows(
   get_irr_stats("Datasets/gen2irrx2.xlsx", "gender.r", "gen1", "gen2", "Gender"),
   get_irr_stats("Datasets/lead2irrx2.xlsx", "leader.r", "lead1", "lead2", "Leader"),
   get_irr_stats("Datasets/lap2irrx2.xlsx", "time_lapse.r", "lap1", "lap2", "Time lapse"),
@@ -134,10 +135,18 @@ irr_table <- bind_rows(
   get_irr_stats("Datasets/gm3irr.xlsx", "gm", "gm1", "gm2", "Group membership")
 )
 
-# Display the table
-library(knitr)
-kable(irr_table, caption = "Agreement and Reliability with Human Annotators and Retest")
+# Display the table with caption
+# Display the table with caption
+kable(irr_table, caption = "Table 1. Interrater and retest reliability statistics for 13 ethnographic variables coded in the HRAF Fasting Dataset. Columns show percent agreement between human annotators, Gwet's AC1, Cohen's Kappa, and percent agreement on retest.") %>%
+  kable_styling(position = "left")
 
+
+# # Manually insert caption below
+# cat("
+# <p style='text-align: left; font-weight: bold;'>
+# Table 1. Interrater and retest reliability statistics for 13 ethnographic variables coded in the HRAF Fasting Dataset. Columns show percent agreement between human annotators, Gwet's AC1, Cohen's Kappa, and percent agreement on retest.
+# </p>
+# ")
 ```
 
 ## Classification Performance: Precision, Recall, and F1
@@ -145,10 +154,10 @@ kable(irr_table, caption = "Agreement and Reliability with Human Annotators and 
 To assess possible human annotation errors, we adjudicated all disagreement cases including examining GPT’s rationale (see Methods). When GPT’s explanation proved more compelling or textually grounded, we revised the labels accordingly, and we created a new variable based on the final verdict called Human-AI resolved.
 
 
-Figure 4 compares the classification performance (precision in blue, recall in red, and F1 score in green) of two independent GPT annotation runs and the human consensus against human-AI as the ‘ground truth’. The results show that both rounds of GPT have high scores for precision, recall, and the harmonic mean F1 for Altered States of Consciousness, Sexual Abstinence, Social Withdrawal, Visions and Knowledge, Man, Woman, and Both. GPT showed greater variability between the two rounds and reduced precision and recall for Social and Economic Costs. GPT also performed consistently poorly on all metrics for Group Membership. GPT tended to have higher recall at the expense of precision (i.e., many false positives) for the following: Discomfort, Exhaustion, and Illness; Time Lapse; Religiosity; and Visions and Knowledge. GPT performed better than the human consensus on Sacrifice and Charity, though the metrics for all three labels are low due to the fact that GPT picked up on cases that the human annotators missed due to a conceptual ambiguity in the human-devised operationalization (see Discussion for details).
+Figure 2 compares the classification performance (precision in blue, recall in red, and F1 score in green) of two independent GPT annotation runs and the human consensus against human-AI as the ‘ground truth’. The results show that both rounds of GPT have high scores for precision, recall, and the harmonic mean F1 for Altered States of Consciousness, Sexual Abstinence, Social Withdrawal, Visions and Knowledge, Man, Woman, and Both. GPT showed greater variability between the two rounds and reduced precision and recall for Social and Economic Costs. GPT also performed consistently poorly on all metrics for Group Membership. GPT tended to have higher recall at the expense of precision (i.e., many false positives) for the following: Discomfort, Exhaustion, and Illness; Time Lapse; Religiosity; and Visions and Knowledge. GPT performed better than the human consensus on Sacrifice and Charity, though the metrics for all three labels are low due to the fact that GPT picked up on cases that the human annotators missed (see Discussion for details).
 
 
-```{r, echo=FALSE, fig.height=8, fig.width=10, include=TRUE}
+```{r fig-metrics, echo=FALSE, fig.height=8, fig.width=10, fig.align='left', fig.cap="Figure 2. Comparison of Precision, Recall, and F1 Score by Variable and Annotator. This figure presents the performance metrics—F1 Score (green), Precision (blue), and Recall (red)—for GPT-based models and human annotations across various thematic datasets. Each subplot represents a variable (e.g., 'Altered states', 'Group membership', 'Religiosity'), with bars indicating the performance of different annotators. GPT methods are labeled as 'GPT1' and 'GPT2', and are compared to human consensus. Results vary by theme, with GPT methods often matching or exceeding human performance, though human annotations occasionally achieve higher precision or recall depending on the category"}
 
 var_dict <- c(
   "Asc" = "Altered states",
@@ -156,15 +165,15 @@ var_dict <- c(
   "Gm" = "Group membership",
   "Lap" = "Time lapse",
   "Lead" = "Leader",
-  "Mat" = "Sexual abstention",
+  "Mat" = "Sexual abstinence",
   "Rel" = "Religiosity",
   "Sca" = "Sacrifice & charity",
-  "Se" = "Social/economic",
+  "Se" = "Social/economic costs",
   "Sw" = "Social withdrawal",
   "Vk" = "Visions & knowledge",
   "Man" = "Man",
   "Woman" = "Woman",
-  "Both" = "Both genders"
+  "Both" = "Both (men & women)"
 )
 
 # List of datasets and variables for batch processing
@@ -199,13 +208,11 @@ for (dataset in datasets) {
   name <- dataset$name
 
   # Compute precision, recall, and F1-score
-  metrics <- data.frame(
-    Dataset = name,
-    Method = c(paste("Human (", vars[1], ")", sep = ""), 
-               paste("GPT (", vars[2], ")", sep = ""), 
-               paste("GPT (", vars[3], ")", sep = "")),
-    t(sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])))
-  )
+metrics <- data.frame(
+  Dataset = name,
+  Method = c("HC", "GPT1", "GPT2"),
+  t(sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])))
+)
 
   # Rename columns
   colnames(metrics) <- c("Dataset", "Method", "Precision", "Recall", "F1_Score")
@@ -233,126 +240,67 @@ p <- ggplot(final_metrics_long, aes(x = Method, y = Value, fill = Metric)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~ Dataset, scales = "free_x") +
   labs(
-    title = "Precision, Recall, and F1 Score by Dataset and Method",
-    x = "Method", y = "Score"
+    title = "Precision, Recall, and F1 Score by Variable and Annotator",
+    x = "Annotator", 
+    y = "Score"
   ) +
   scale_fill_manual(values = c("Precision" = "blue", "Recall" = "red", "F1_Score" = "green")) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  coord_cartesian(ylim = c(0, 1))  # <- This is the only change
+  coord_cartesian(ylim = c(0, 1))
 
 
 # Display the plot
 print(p)
 
 ```
-
-
-
-
-```{r, echo=FALSE, fig.height=8, fig.width=10, include=TRUE}
-
-# Initialize an empty list to store all metric results
-# metrics_list <- list()
-# 
-# # List of datasets and variables for batch processing
-# gdatasets <- list(
-#   list(name = "Man", df = gentf_updated, vars = c("genderm.r", "genm1", "genm2"), target = "genm_updated"),
-#   list(name = "Woman", df = gentf_updated, vars = c("genderw.r", "genw1", "genw2"), target = "genw_updated"),
-#   list(name = "Both", df = gentf_updated, vars = c("genderb.r", "genb1", "genb2"), target = "genb_updated")
-# )
-# 
-# # Loop through each dataset and compute metrics
-# for (dataset in gdatasets) {
-#   df <- dataset$df
-#   vars <- dataset$vars
-#   target <- dataset$target
-#   name <- dataset$name  # Gender category (Man, Woman, Both)
-# 
-#   # Compute precision, recall, and F1-score
-#   metrics <- data.frame(
-#     Model = c("Human", "GPT-1", "GPT-2"),
-#     Precision = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[1]),
-#     Recall = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[2]),
-#     F1_Score = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[3])
-#   )
-# 
-#   # Add a column for gender category
-#   metrics$Gender_Category <- name
-# 
-#   # Store in the list
-#   metrics_list[[name]] <- metrics
-# }
-# 
-# # Combine all datasets into a single data frame
-# metrics_data <- bind_rows(metrics_list)
-# 
-# # Convert from wide to long format for ggplot
-# metrics_long <- pivot_longer(metrics_data, cols = c(Precision, Recall, F1_Score), 
-#                              names_to = "Metric", values_to = "Value")
-# 
-# # Plot grouped bar chart
-# p2 <- ggplot(metrics_long, aes(x = Model, y = Value, fill = Metric)) +
-#   geom_bar(stat = "identity", position = "dodge") +
-#   facet_wrap(~ Gender_Category) +  # Separate plots for Man, Woman, Both
-#   labs(title = "Precision, Recall, and F1 Score by Gender Category",
-#        x = "Model", y = "Score", fill = "Metric") +
-#   theme_minimal() +
-#   scale_fill_manual(values = c("Precision" = "blue", "Recall" = "red", "F1_Score" = "green")) +
-#   theme(text = element_text(size = 14))
-# 
-# # Display the plot
-# print(p2)
-
-```
-
 ## GPT Performance on Unresolved Annotations
 
-The heatmap displayed in Figure 5 is a heatmap of three-way inter-rater reliability and percent agreement metrics comparing two human annotators (Coder 1 and Coder 2) to GPT. Agreement between the two human coders was generally high across most variables, with percent agreement ranging from 67.3% (Gender) to 98.6% (Sacrifice and Charity), and Gwet’s AC1 indicating substantial to near-perfect agreement across variables (range: 0.57–0.99). Cohen’s Kappa was lower for several variables: Sexual Abstinence (0.07), Group Membership (0.11), and Altered State of Consciousness (0.19), reflecting the use of slightly different heuristics to code these variables (See Discussion).
+Figure 3 is a heatmap of three-way inter-rater reliability and percent agreement metrics comparing two human annotators (Coder 1 and Coder 2) to GPT. Agreement between the two human coders was generally high across most variables, with percent agreement ranging from 67.3% (Gender) to 98.6% (Sacrifice and Charity), and Gwet’s AC1 indicating substantial to near-perfect agreement across variables (range: 0.57–0.99). Cohen’s Kappa was lower for several variables: Sexual Abstinence (0.07), Group Membership (0.11), and Altered State of Consciousness (0.19), reflecting the use of slightly different heuristics to code these variables (See Discussion).
 
 Comparisons between GPT and Coder 1 (C1) showed high levels of percent agreement (e.g., 96.7% for Altered State of Consciousness, 93.2% for Sexual Abstinence), and strong Gwet’s AC1 values for most variables (range: 0.53–0.96). Cohen’s Kappa values were lower (range: 0.03–0.65), with low IRR on Sacrifice and Charity (0.03), Group Membership (0.11), and Religiousity (0.08). Because 0 is the most common value across all datasets, GPT has high agreement on absence (0s) but is more inconcsistent for presence (1s). Conversely, GPT showed moderate to high agreement across all metrics on the following variables: Gender; Time Lapse; Leader; Vision and Knowledge; Discomfort, Exhaustion, and Illness. C1 annotations are missing for Social and Economic Costs and Social Withdrawal due to undercoding, related to the two variables were inductively developed during the coding process.
 
 Comparison of GPT with Coder 2 (C2) revealed similar trends: strong percent agreement and Gwet’s AC1 across most variables (e.g., 97.8% agreement and 0.98 AC1 for Group Membership). There was relatively low Cohen’s Kappa coefficients for Sacrifice and Charity (0.06), Time Lapse (0.34), and Discomfort, Exhaustion, and Illness (0.36). The one exception was Visions and Knowledge, where GPT achieved a relatively high Kappa (0.74) with both human coders, suggesting stronger model reliability for that variable. These results demonstrate GPT's consistent alignment with human judgments on absence of features, and more disagreement in the presence of 1s, which is to be expected (see Confusions Matrices for GPT, C1, and C2 in SI). 
 The overall performance of GPT is strong, pariculrly considering that the unresolved annoatations: 1) contain more errors due to attention lapses or typos, 2) reflect the use of different heuristics and constructs between the coders, and 3) are more ambiguous until post-annotation analysis, particularly for inductive variables (see Methods).
 
-```{r include-image, echo=FALSE, out.width="80%"}
+```{r include-image, echo=FALSE, out.width="100%", fig.align='left', fig.cap="Figure 3. Inter-rater reliability metrics for human coders (C1 and C2) and GPT-4 across 12 theoretical variables. Cells show percent agreement, Gwet’s AC1, and Cohen’s Kappa for each coder-variable pairing. Green indicates high agreement; red indicates low agreement. 'NA' denotes variables not annotated by the corresponding coder due to differences in inductive codes applied."}
 knitr::include_graphics("final_table.png")
 
 ```
 
 # Discussion
 
-Our findings demonstrate the capability of GPT-4o to reliably annotate culturally diverse ethnographic data, outperform humans on select variables, and enhance overall annotation accuracy following a human-in-the-loop workflow. In this iterative approach, human expertise and AI-generated insights are combined to refine construct definitions and improve coding reliability [@wu2022]. In finding that GPT-4o can accurately index theoretically relevant content of ethnographic texts from societies that are underrepresented in the human behavioral sciences [@henrich2010; @apicella2020], LLMs offers are a promising tool for accelerating data generation and theory development in cross-cultural research. We propose a novel, scalable application of LLMs in cross-cultural research: the generation of units of culture, in which each coded instance—derived from either deductive or inductive labels, such as cognitive states, ritualized behaviors, biological conditions, or social outcomes—functions as a minimal unit of analysis, like a pixel in a digital image or a stone in a mosaic. When aggregated and modeled statistically, these instances can yield high-resolution ‘snapshots’ of cultural systems, revealing latent patterns in belief, behavior, and social organization. 
-Using a binary-coded dataset derived from 56 ethnographic sources, we found that GPT-4o’s performance is on par with human annotators across a range of theoretically relevant constructs. These findings are consistent with mounting evidence that LLMs are starting to achieve human-like performance on annotation tasks [@rathje2024; @balt2025; @balt2024; @xiao2023; @rytting2024]. IRR metrics indicated modest to substantial agreement with humans for multiple variables, including Gender, Leader, Altered State of Consciousness, Sexual Abstinence, Social Withdrawal, and Visions and Knowledge, on both the subset and on the unresolved data. High re-test reliability shows GPT-4o’s internal consistency. Importantly, GPT-4o not only replicated human annotation capabilities but, in the case of Sacrifice and Charity, improved upon it by identifying novel instances that expanded the operational scope of the construct. In this case, GPT identified payments to shamans as a form of resource transfer consistent with the prompt but not with the heuristics the humans were using. The original construct, inductively developed from accounts of charity during Ramadan, did not explicitly include payments to ritual specialists. By identifying these edge cases, GPT challenged a human assumption and helped identify a cultural practice that we would have otherwise missed, thus improving construct validity. Furthermore, in adjudicating all disagreements on the human consensus subset to create a Human-AI resolved ‘gold standard’, we found that GPT-4o was often correct and even outperformed humans in the case of Social Withdrawal (see Fig. 4).
+Our findings demonstrate the capability of GPT-4 to reliably annotate culturally diverse ethnographic data, outperform humans on select variables, and enhance overall annotation accuracy following a human-in-the-loop workflow. In this iterative approach, human expertise and AI-generated insights are combined to refine construct definitions and improve coding reliability [@wu2022]. In finding that GPT-4 can accurately index theoretically relevant content of ethnographic texts from societies that are underrepresented in the human behavioral sciences [@henrich2010; @apicella2020], LLMs are a promising tool for accelerating data generation and theory development in cross-cultural research. We propose a novel, scalable application of LLMs in cross-cultural research: the generation of units of culture, in which each coded instance—derived from either deductive or inductive labels, such as cognitive states, ritualized behaviors, biological conditions, or social outcomes—functions as a minimal unit of analysis, like a pixel in a digital image or a stone in a mosaic. When aggregated and modeled statistically, these instances can yield high-resolution ‘snapshots’ of cultural systems, revealing latent patterns in belief, behavior, and social organization. 
+Using a binary-coded dataset derived from 56 ethnographic sources, we found that GPT-4’s performance is on par with human annotators across a range of theoretically relevant constructs. These findings are consistent with mounting evidence that LLMs are starting to achieve human-like performance on annotation tasks [@rathje2024; @balt2025; @balt2024; @xiao2023; @rytting2024]. IRR metrics indicated modest to substantial agreement with humans for multiple variables, including Gender, Leader, Altered State of Consciousness, Sexual Abstinence, Social Withdrawal, and Visions and Knowledge, on both the subset and on the unresolved data. High re-test reliability shows GPT-4’s internal consistency. Importantly, GPT-4 not only replicated human annotation capabilities but, in the case of Sacrifice and Charity, improved upon it by identifying novel instances that expanded the operational scope of the construct. In this case, GPT identified payments to shamans as a form of resource transfer consistent with the prompt but not with the heuristics the human annotators were using. The original construct, inductively developed from accounts of charity during Ramadan, did not explicitly include payments to ritual specialists. By identifying these edge cases, GPT challenged a human assumption and helped identify a cultural practice that we would have otherwise missed, thus improving construct validity. Furthermore, in adjudicating all disagreements on the human consensus subset to create a Human-AI resolved ‘gold standard’, we found that GPT-4 was often correct and even outperformed humans in the case of Social Withdrawal (see Fig. 2).
 
-GPT tended to have higher recall and lower precision, whereas human annotation tended to have higher precision and lower recall (see Fig. 4). In other words, GPT-4o tended to err on the side of overcoding, whereas the human annotators were more cautious. GPT-4o more often would annotate if the variable topic was mentioned even if it was not relevant to fasting, whereas humans were better at avoiding those errors. However, this proved to help balance out the cautious annotations of the coders, and GPT-4o sometimes identified cases that the humans missed (see SI). GPT-4o performed relatively poorly on Social and Economic Costs and Discomfort, Exhaustion, and Illness, likely, because the prompt contained too many distinct and even opposing elements, including reputational costs for both fasting too much or not at all in addition to economic costs like loss of business (see Table 2).
+GPT tended to have higher recall and lower precision, whereas human annotation tended to have higher precision and lower recall (see Fig. 2). In other words, GPT-4 tended to err on the side of overcoding, whereas the human annotators were more cautious and erred towards missing potential cases. GPT-4 more often would annotate if the variable topic was mentioned even if it was not relevant to fasting itself, whereas humans were better at avoiding those errors. However, this proved to help balance out the cautious annotations of the coders, and GPT-4 sometimes did identify cases that the humans missed (see SI and Table 3). GPT-4 performed relatively poorly on Social and Economic Costs and Discomfort, Exhaustion, and Illness, likely, because the prompt contained too many distinct and even opposing elements, including reputational costs for both fasting too much or not at al--in addition to economic costs like loss of business (see Table 2).
 
-GPT-4o’s comparatively low agreement with human coders on Group Membership and Religiosity is partly attributable to the relatively low frequency of ethnographic texts that clearly meet the operational criteria for these constructs. There are clear instances of texts that meet the operational definition. For example, the human consensus and both rounds of GPT identified the following for Group Membership: “…the violation of the Islamic regulation oppresses him. He feels like an apostate and separated from his comrades (see SI).” From this negative instance, in which breaking the fast resulted in feelings of alienation, both human coders and GPT-4o inferred that fasting serves as a mechanism of group cohesion and belonging. More often, however, group membership and religiosity were implicit rather than explicit in the texts. For Religiosity, GPT-4o’s rationale for coding positive instances often included cases where fasting was listed alongside other religious practices (see SI), not that fasting serves as a signal that one is pious or religious per se (see Table 2). This distinction is important, because it is known that fasting is often tied to religious traditions. What is theoretically significant to test is the extent to which the act of fasting distinguishes individuals by social group, leadership status, or religious conviction [@singh2020; @henrich2009; @sosis2007], as in the following positive instance of Religiosity: “Religious knowledge and piety, as evinced through such meritorious acts as… obligatory fasts (see SI).” Additional strategies to identify cases of Religiosity or Group Membership could prompt the LLM to measure secondary indices, such as quantifying the proportion of a text containing religious themes or references to markers of group identity. Another strategy is to expand the ethnographic source data and include a culturally representative sample of ethnographies that have a dedicated focus to the topic of fasting and describe social contexts in great detail [e.g., @moller2005; @vallely2002]. 
+GPT-4’s comparatively low agreement with human coders on Group Membership and Religiosity is partly attributable to the relatively low frequency of ethnographic texts that clearly meet the operational criteria for these constructs. There are clear instances of texts that meet the operational definition. For example, the human consensus and both rounds of GPT identified the following for Group Membership: “…the violation of the Islamic regulation oppresses him. He feels like an apostate and separated from his comrades (see SI).” From this negative instance, in which breaking the fast resulted in feelings of alienation, both human coders and GPT-4 inferred that fasting serves as a mechanism of group cohesion and belonging. More often, however, group membership and religiosity were implicit rather than explicit in the texts. For Religiosity, GPT-4’s rationale for coding positive instances often included cases where fasting was listed alongside other religious practices (see Table 3), not that fasting serves as a signal that one is pious or religious per se (see Table 2). This distinction is important, because it is known that fasting is often tied to religious traditions. What is theoretically significant to test is the extent to which the act of fasting distinguishes individuals by social group, leadership status, or religious conviction [@singh2020; @henrich2009; @sosis2007], as in the following positive instance of Religiosity: “Religious knowledge and piety, as evinced through such meritorious acts as… obligatory fasts (see SI).” Additional strategies to identify cases of Religiosity or Group Membership could prompt the LLM to measure secondary indices, such as quantifying the proportion of a text containing religious themes or references to markers of group identity. Another strategy is to expand the ethnographic source data and include a culturally representative sample of ethnographies that have a dedicated focus to the topic of fasting and describe social contexts in great detail [e.g., @moller2005; @vallely2002]. 
 
-In the context of ethnographic annotation, each presence label—or ‘1’—can be interpreted as a theoretically meaningful ‘unit’ of cultural expression, reflecting the instantiation of latent dimensions [see also @jajoo2025]. These ‘units’ offer an architecture for both confirmatory and exploratory research on latent cultural dimensions—transforming ethnographic descriptions into interoperable, theory-driven data suitable for quantitative modeling. We contend that a binary approach (presence/absence), as opposed to using Likert-scales, will reduce ambiguity, as prior results comparing LLMs to human performance on assigning Likert ratings found that LLMs were more likely to assign extreme scores [@martinez2025], introducing noise. Rather than assessing the strength or subtlety of a construct on a scale, we recommend measuring intensity by aggregating the number of occurrences across different levels of analysis—paragraphs, documents, cultures, or regions, allowing researchers to approximate relative emphasis without relying on subjective gradations. LLMs can also annotate meta-textual features, such as the account’s temporal proximity to the events described (e.g., Time Lapse), the evidentiary basis of an account (firsthand versus secondhand), and the presence of interpretive bias that are informative of the quality and reliability of the data. When aggregated across societies, these 1’s enable testing theories of human behavior and mapping the patterning and distribution of cultural practices [see e.g., @syme2016]. Statistical methods to analyze this type of data include heatmaps to visualize co-occurrence patterns, principal component analyses (PCA) to uncover latent dimensions, and phylogenetic approaches to model cultural transmission and change over time [@ringen2019; @minocher2019; @hrnvcivr2020]. Together, these methods provide a framework for modeling dynamics between cultural practices and ecological, social, or historical variables, by accounting for underlying structural dependencies and controlling for confounding influences.
+In the context of ethnographic annotation, each presence label—or ‘1’—can be interpreted as a theoretically meaningful ‘unit’ of cultural expression, reflecting the instantiation of latent dimensions [see also @jajoo2025]. These ‘units’ offer an architecture for both confirmatory and exploratory research on latent cultural dimensions—transforming ethnographic descriptions into interoperable, theory-driven data suitable for quantitative modeling. We contend that a binary approach (presence/absence), as opposed to using Likert-scales, will reduce ambiguity, as prior results comparing LLMs to human performance on assigning Likert ratings found that LLMs were more likely to assign extreme scores [@martinez2025], introducing noise. Rather than assessing the strength or subtlety of a construct on a scale, we recommend measuring intensity by aggregating the number of occurrences across different levels of analysis—paragraphs, documents, cultures, or regions, allowing researchers to approximate relative emphasis without relying on subjective gradations. LLMs can also annotate meta-textual features, such as the account’s temporal proximity to the events described (e.g., Time Lapse), the evidentiary basis of an account (firsthand versus secondhand), and the presence of interpretive bias that are informative of the quality and reliability of the data. When aggregated across societies, these 1’s enable testing theories of human behavior and mapping the patterning and distribution of cultural practices [see e.g., @syme2016; @garfield2019]. Statistical methods to analyze this type of data include heatmaps to visualize co-occurrence patterns, principal component analyses (PCA) to uncover latent dimensions, and phylogenetic approaches to model cultural transmission and change over time [@ringen2019; @minocher2019; @hrnvcivr2020]. Together, these methods provide a framework for modeling dynamics between cultural practices and ecological, social, or historical variables, while controlling for Galton’s problem—that is, the statistical non-independence of cultural data due to shared ancestry or mutual influence between societies [@de2000}.
 
-The present analysis is intended as a proof of concept, focused on a subset of 12 categorically distinct variables (drawn from over 70 in the full dataset), to evaluate GPT-4o’s annotation performance relative to human coders across a range of theoretically relevant constructs. Future work will extend LLM-assisted annotation across the complete set of fasting-related variables in the HRAF Fasting Project. This expanded dataset will provide the scale and resolution necessary for applying the statistical approaches outlined above—including multivariate and phylogenetic models—to formally test hypotheses and model the co-occurrence and distribution of cultural features across diverse societies.
+The present analysis is intended as a proof of concept, focused on a subset of 12 distinct variables (drawn from over 70 in the full dataset), to evaluate GPT-4’s annotation performance relative to human coders across a range of theoretically and empirically relevant constructs. Future publications will extend LLM-assisted annotation across the complete set of fasting-related variables in the HRAF Fasting Project. This expanded dataset will provide the scale and resolution necessary for applying the statistical approaches outlined above—including multivariate and phylogenetic models—to formally test hypotheses and model the co-occurrence and distribution of cultural features across diverse societies.
 
-Overall, GPT-4o offered rationale for its responses based on patterns it had learned from extensive pretraining on large-scale textual corpora (e.g., Wikipedia), which include diverse sources of cultural knowledge. GPT, for instance, accurately interpreted terms from diverse languages, such as words for leaders or ritual practices. In four cases, GPT-4o showed bias against women leaders with GPT acknowledging “holy person” as status titles but not “holy woman” (see SI); thus, if automated across a novel set of text to annotate, these results suggest that this model might systematically underrepresent women in leadership. This bias might be due to the fact that previous ethnographic research using similar annotation methods, but with human annotators only, found that in small-scale societies, men are more often political leaders than women [@garfield2020], and thus GPT-4o is possibly injecting this expectation into the annotation process based on pre-training [@dubourg2024]. Nevertheless, GPT’s performance on complex interpretive tasks is likely to improve with subsequent model generations, as prior research demonstrates systematic advances in the accurate representation of human-defined constructs [@rathje2024]. This includes compliance with instructions to restrict analysis to textual context and to avoid inferential reasoning—an instruction GPT-4o frequently failed to observe (see SI).
+Extending LLM annotation to the full set of fasting-related variables will require prompt refinement and validation across all 1,240 ethnographic paragraphs. One strategy is to iteratively test GPT-4 on a smaller subset until performance reaches a threshold  (e.g., >90%) sufficient for deployment at scale. Another approach involves adding a ‘majority rule’ column—based on the most frequent label across human annotators and multiple GPT runs—and then evaluating which annotation source best predicts the content of the text in a representative sample. Ideally, disagreements would be adjudicated by multiple human coders to minimize individual bias and ensure construct validity. Benchmarking model outputs against independent cultural metadata, such as external ethnographic or anthropological datasets [@dubourg2024], can also help validate construct sensitivity and improve generalizability. While these steps can improve reliability, it is important to acknowledge that a margin of error inevitably surrounds both human and AI-generated annotations, and this uncertainty must be factored into downstream analyses and interpretations.
+
+Overall, GPT-4 offered rationale for its responses based on patterns it had learned from extensive pre-training on large-scale textual corpora (e.g., Wikipedia), which include diverse sources of cultural knowledge. GPT, for instance, accurately interpreted terms from diverse languages, such as words for leaders or ritual practices. In four cases, however, GPT-4 showed bias against women leaders with GPT acknowledging “holy person” as status titles but not “holy woman” (see Table 3 and SI); thus, if automated across a novel set of text to annotate, these results suggest that this model might systematically under-represent women in leadership. This bias might be due to the fact that previous ethnographic research using similar annotation methods, but with human annotators only, found that in small-scale societies, men are more often political leaders than women [@garfield2020], and thus GPT-4 is possibly injecting this expectation into the annotation process based on pre-training [@dubourg2024]. Nevertheless, GPT’s performance on complex interpretive tasks is likely to improve with subsequent model generations, as prior research demonstrates systematic advances in the accurate representation of human-defined constructs [@rathje2024]. This includes compliance with instructions to restrict analysis to textual context and to avoid inferential reasoning—an instruction GPT-4 frequently failed to observe (see Table 3 and SI).
 
 LLMs can serve as a means to address Western bias in the human behavioral sciences by dramatically accelerating the annotation of ethnographic texts, incorporating data from a broader spectrum of cultural contexts and supporting the development of more generalizable theories of human behavior [@henrich2010; @apicella2020]. However, realizing this potential requires attentiveness to the ethical implications of integrating AI into cross-cultural research. To ensure that such research is conducted ethically, we outline a set of actionable recommendations informed by UNESCO’s principles for global AI ethics [@unesco2023] and recent guidelines from the scientific community. In alignment with the principles of responsibility and transparency, researchers should adopt open science practices—making data, code, and annotation protocols publicly accessible [@haibe2020]—and clearly disclose which components of the research pipeline were carried out by humans versus AI models [@knoechel2024]. While LLMs might be more ecologically sustainable than travel-intensive fieldwork, researchers must remain mindful of computational resource use. In line with the principle of proportionality, AI actors should favor energy-efficient methods [@unesco2023].
 
 Ensuring fairness and non-discrimination requires human oversight, culturally diverse data, and careful interpretation to avoid reproducing bias [@grossmann2023]. Central to this is adaptive, multistakeholder governance: researchers should collaborate with represented communities not merely as subjects but as co-creators [@lenette2022]—shaping research questions, validating findings, and the co-production of cultural knowledge [@urassa2021]. Promoting cultural awareness among researchers and AI literacy among both researchers and community stakeholders is also essential for ensuring equitable representation in AI-driven research, guiding the ethical use of AI, and resisting the impact of ‘technocoloniality’ [@mboa2023].
 
-Taken together, these findings suggest that LLMs—particularly GPT-4o and beyond—are capable of reliably coding complex, culturally diverse ethnographic data in ways that support both theory testing and development in the human behavioral sciences. By operationalizing constructs through a binary annotation scheme, LLMs can generate high-resolution cultural datasets that are well-suited for statistical modeling and comparative analysis. The automation of ethnographic annotation through LLMs holds the potential to accelerate inclusive, cross-cultural research, but realizing this potential responsibly will require sustained oversight of human domain experts to define constructs, adjudicate ambiguity, and ensure that ethical standards guide the interpretation and application of AI-generated insights.
-
+Taken together, these findings suggest that LLMs—particularly GPT-4 and beyond—are capable of reliably coding complex, culturally diverse ethnographic data in ways that support both theory testing and development in the human behavioral sciences. By operationalizing constructs through a binary annotation scheme, LLMs can generate high-resolution cultural datasets that are well-suited for statistical modeling and comparative analysis. The automation of ethnographic annotation through LLMs holds the potential to accelerate inclusive, cross-cultural research, but realizing this potential responsibly will require sustained oversight of human domain experts to define constructs, adjudicate ambiguity, and ensure that ethical standards guide the interpretation and application of AI-generated insights.
 
 # Methods
 
 ## Ethnographic Text Extraction
 
-We extracted data from the Probability Sample Files (PSF) within the electronic Human Relations Area Files (eHRAF), using the search term “fast*”. Only texts referring specifically to abstention from food or drink were retained. This yielded 1,236 paragraphs from 56 societies represented in the PSF. The PSF is a stratified random sample comprising 60 cultures drawn from 60 global regions, selected based on data quality criteria such as ethnographer fluency in the local language (see HRAF documentation). Each paragraph is accompanied by author, publication title, publication year, field dates, and culture.
-Additionally, two cultures not included in the PSF—Khoi and Warao—were inadvertently included. We decided to retain these texts despite the error to increase the sample size for GPT model testing.
+We extracted data from the Probability Sample Files (PSF) within the electronic Human Relations Area Files (eHRAF), using the search term “fast*”. The PSF is a stratified random sample comprising 60 cultures drawn from 60 global regions, selected based on data quality criteria such as ethnographer fluency in the local language (see HRAF documentation). Each paragraph is accompanied by author, publication title, publication year, field dates, and culture. Only texts referring specifically to abstention from food or drink were retained. Additionally, two cultures not included in the PSF—Khoi and Warao—were inadvertently included. We decided to retain these texts despite the error to increase the sample size for GPT model testing. This resulted in 1,240 paragraphs from 56 societies.
 
 ## Theoretical Operationalizations and Manual Coding
 
 Theoretical operationalizations were devised using a deductive approach for some and an inductive approach for others. Deductively derived variables were operationalized and the texts were annotated for the presence or absence (1 or 0) of that variable. For instance, we initially coded for the presence or absence of health and social costs, and in an adjacent column, we recorded the types of health and social costs discussed in texts, such as illness, tiredness, punishment. Other variables were identified during the coding process, we noticed that texts often mentioned cognitive states such as trance, meditation, or dreams, so we added a Cognitive State variable and documented types of cognitive states described from the text.
-Initial annotation was performed independently by two researchers (CP and KS), including deductive and inductive codes. Post-annotation, KS combined unique annotations into categories. We aimed to ‘carve nature at its joints’. When consolidating the variables, the goal was to balance distinctions between phenomena of potential theoretical significance, while keeping in mind that having variables that are too fine-grained results in lower observations for each variable and increases the dimensionality of the dataset. For instance, "thirst" and "hunger" were grouped as indicators of biological cost, and regarding cognitive states, a distinction was drawn between descriptions of altered states of consciousness, like trance, which are externally observable and descriptions of visions and knowledge acquisition, which are internally experienced (see Table 2). 
+Initial annotation was performed independently by two researchers (CP and KS), including deductive and inductive codes. Post-annotation, KS combined unique annotations into categories. When combining the variables, the goal was to balance distinctions between phenomena of potential theoretical significance, while keeping in mind that having variables that are too fine-grained results in lower observations for each variable and increases the dimensionality of the dataset. For instance, "thirst" and "hunger" were grouped as indicators of biological cost, and regarding cognitive states, a distinction was drawn between descriptions of altered states of consciousness, like trance, which are externally observable and descriptions of visions and knowledge acquisition, which are internally experienced (see Table 2). 
 
 ```{r, echo=FALSE, fig.height=8, fig.width=10, include=TRUE}
 table2 <- tribble(
@@ -371,21 +319,63 @@ table2 <- tribble(
   "", "Group Membership", "Group solidarity or commitment, belonging to a group"
 )
 
-knitr::kable(table2, caption = "Table 2: Sample of Operationalized Variables on Fasting", longtable = TRUE, booktabs = TRUE)
+knitr::kable(table2, caption = "Table 2 presents a the variable operationalizations used to analyze fasting practices. The table categorizes variables by type each with specific indicators and descriptions to guide annotation of fasting-related texts or behaviors.", longtable = TRUE, booktabs = TRUE)
 
 ```
 
 ## Prompt Engineering
 
-Prompt engineering—the iterative process of designing inputs to optimize model output [@marvin2023]—was carried out primarily using R (see Supplementary Information). To evaluate the capabilities of GPT-4.0 in ethnographic text annotation, we selected a subset of variables reflecting key theoretical dimensions of fasting and its representation in cross-cultural research (see Table 2). In aiming to sample the diversity of the types of phenomena captured by these texts, we chose variables that index: characteristics of fasters, the quality of the account, direct and indirect costs of fasting (biological, social, and economic), and communicative signal types (does the act of fasting communicate something to others?).
-Following procedures outlined in @dubourg2024, we refined prompts through repeated trial and error to assess GPT-4.0’s annotation accuracy. This approach uses Parameter-Efficient Fine-Tuning (PEFT), which allows models to be adapted to new tasks by adjusting only a small number of parameters, such as prompts rather than retraining the entire model. @liu2021 demonstrated that optimized prompt tuning can achieve results comparable to full fine-tuning, evidencing the efficiency and effectiveness of prompt-based approaches for adapting large language models to specialized tasks like ethnographic annotation. 
+To evaluate the capabilities of GPT-4 in ethnographic text annotation, we selected a subset of variables reflecting key theoretical dimensions of fasting and its representation in cross-cultural research (see Table 2). In aiming to sample the diversity of the types of phenomena captured by these texts, we chose variables that index: characteristics of fasters, the quality of the account, direct and indirect costs of fasting (i.e., biological and social/economic), and communicative signal types.
 
-Initial prompts were constructed based on operational definitions used by human coders. These were implemented through an R script that accessed GPT-4.0 via OpenAI’s API. We also conducted exploratory prompt testing using OpenAI’s web interfaces (Playground and ChatGPT), recognizing that these might rely on earlier models (e.g., GPT-3.5). Throughout the process, prompt formulation was revised in response to GPT’s performance. Researchers manually reviewed both successful and failed outputs to identify systematic sources of error, such as misattribution or misinterpretation. When GPT’s outputs were incorrect, we analysed its own rationales to better understand the model’s reasoning and guide further prompt refinement. GPT’s suggestions for revising prompts were also tested, although these were inconsistently helpful. To avoid overfitting prompts to specific examples, we assessed performance across diverse texts and prioritized simplicity and clarity [see @dubourg2024]. While GPT can process multi-criteria instructions, overly complex prompts tended to degrade performance. Thus, effective prompt design required balancing comprehensiveness with cognitive parsimony.
+Prompt engineering—the iterative process of designing inputs to optimize model output [@marvin2023]. Initial prompts were constructed based on operational definitions used by human coders. These were implemented through an R script that accessed GPT-4.0 via OpenAI’s API. We also conducted exploratory prompt testing using OpenAI’s web interfaces (Playground and ChatGPT), recognizing that these might rely on earlier models (e.g., GPT-3.5). Following procedures outlined in @dubourg2024, we refined prompts through repeated trial and error to assess GPT’s annotation accuracy. This approach uses Parameter-Efficient Fine-Tuning (PEFT), which allows models to be adapted to new tasks by adjusting only a small number of parameters—such as prompts—rather than retraining the entire model, and as @liu2021 demonstrated, optimized prompt tuning can achieve results comparable to full fine-tuning, evidencing the efficiency and effectiveness of prompt-based approaches for adapting large language models to specialized tasks like ethnographic annotation.
+
+Throughout the process, prompt formulation was revised in response to GPT’s performance. Researchers manually reviewed both successful and failed outputs to identify systematic sources of error, such as misattribution or misinterpretation. When GPT’s outputs were incorrect, we analysed its own rationales, in some cases, to better understand the model’s reasoning and guide further prompt development. GPT’s suggestions for revising prompts were also tested, although these were inconsistently helpful. To avoid overfitting prompts to specific examples, we assessed performance across diverse texts and prioritized simplicity and clarity [see @dubourg2024]. While GPT can process multi-criteria instructions, overly complex prompts tended to degrade performance. Thus, effective prompt design required balancing comprehensiveness with parsimony.
+
+```{r, echo=FALSE,}
+data <- data.frame(
+  Variable_Name = c(
+    "Religiosity",
+    "Religiosity",
+    "Discomfort/Illness",
+    "Discomfort/Illness",
+    "Leader",
+    "Leader"
+  ),
+  Human_Verdict = c(
+    "False positive",
+    "True positive",
+    "True positive",
+    "False positive",
+    "False negative",
+    "True positive"
+  ),
+  GPT_Rationale = c(
+    "The text explicitly connects fasting with other religious practices such as prayer and giving zakat, which is a form of almsgiving in Islam. The mention of fasting alongside these other religious observances suggests that it is a part of a set of pious behaviors. The text implies that the act of fasting, in conjunction with prayer and zakat, contributes to the individual being considered noble and acceptable to share food with, which indicates a restoration or affirmation of religious purity or piety. Therefore, the text provides evidence that observers perceive fasting as a signal of the faster's religiosity.",
+    "The text explicitly connects fasting with religious practices and perceptions of piety. It mentions that the kin of Kamla reckon time by Islamic traditions, including the annual religious feasts and the month of Ramadan, which is known for fasting. The text also refers to the number of years a person has fasted during Ramadan as a measure of age, which directly links the act of fasting to religious observance. Additionally, the mention of prayer times and the practice of praying facing a specific direction further emphasizes the religious context. The overall implication is that fasting, as practiced by Kamla's kin, is a signal of their religiosity and piety, which is why the code 1 is assigned.",
+    "The text explicitly mentions that the first wife has 'suffered much in fasting,' which directly indicates that she has experienced discomfort or negative effects as a result of abstaining from food or drink. The use of the word 'suffered' implies that she has undergone hardship, which could include being tired, hungry, or in pain, all of which are criteria for coding a numerical 1 according to the instructions provided.",
+    "The paragraph explicitly mentions that during the four days the holy woman remained in her lodge, 'she could not touch water, even to wash.' This implies that she was abstaining from drinking water, which would naturally lead to thirst. Although the text does not directly state that she was tired, hungry, suffering, in pain, at risk of seizures, or agitated, the lack of water for four days would reasonably cause at least thirst, which is one of the conditions listed for coding a numerical 1. Therefore, the presence of thirst due to abstaining from water justifies the code 1.",
+    "The paragraph describes the Blackfoot sun dance and various ceremonies, including fasting, but does not explicitly mention that someone who is fasting is a leader or is about to become a leader. The text mentions a 'virtuous woman' who may vow to sit as a Holy Woman and a man who may be pierced and dance, but it does not provide any context that these individuals hold positions of power or authority such as chiefs, war leaders, shamans, priests, or monks. Therefore, there is no direct indication that the fasters are leaders.",
+    "The paragraph explicitly mentions individuals pursuing the office of an 'Indian doctor,' which is a term that can be associated with a shaman or a spiritual leader within the community. The context suggests that these individuals hold a position of power and authority in a religious or spiritual setting, as the community observes special restrictions in support of their spirit quests and their roles. The mention of the shaman's death and the subsequent restrictions placed upon the kin further supports the idea that the person fasting, or associated with fasting, is a leader. Therefore, the text is coded as 1 because it implies that the person fasting is about to become a leader (an Indian doctor or shaman) within the community."
+  ),
+  Ethnographic_Text = c(
+    "Food is eaten with a Gaboya who has fasted, who has prayed, who has given the zakat. In ancient times he was separated (from the others) because of the unclean meat, but he was noble. If he once repents there will be eating together. In fact if the Law is considered, it is a Gaboya who was separated [from the others] because of the unclean meat. If, then, one goes on and judges, he was a noble that the occupation and the unclean meat separated [from the others]. Once he has left the occupation and has left the unclean meat and has fasted, offered the prayers, and given the zakat, then the Law is that food is eaten with him.",
+    "Piety was a different matter. Like many, Kamla was becoming defensive in the face of new pressure from those sympathetic to Islamic activists in Egypt. She was correct to point out how tied up with their faith her kin were. They reckoned the months by the Islamic lunar calendar, the years by the annual religious feasts, age by the number of years a person has fasted the month of Ramadan, [Page 235] and the hours of the day by the five times for prayer. All the older women and many of the younger ones prayed regularly. Doing without the accoutrements of city people, women simply prayed where they were, facing southeast and laying a small kerchief on the ground before them. The men like Kamlas father tended to know more. They would have learned as children to recite the Quran, and they continued to learn from the lectures at the mosque every Friday.",
+    "The medicinemen pleaded for the first wife because they believed her innocent, but the husband was obdurate. So the second wife was called in to take the place. Then the first wife said, It was I who saved this mans life when he was ill. I made the vow to give the sun dance and he got well. I have suffered much in fasting, all for him. Now he disgraces me before all the people. But I will put my virtue to a test. If I am true, I have already acquired power.",
+    "The main sacrament of the Sun Dance was the buffalo tongue. Whilefastingthe holy woman was instructed by the former bundle owner how to cut the tongues into thin strips and smokedry them over the fire. During the four days that the holy woman remained in her lodge, she could not touch water, even to wash, for this was believed to cause rain. Instead, she wiped her face with a muskrat skin and prepared for the building of the main lodge. On the first day of herfasta huge sweatlodge was built just outside the northern edge of the camp. This lodge was made of fifty willow sticks and was painted half black, for night, and half red, for day. Then fifty stones were heated in readiness for the sweat. This lodge symbolized the actions of Scar Face, a legendary Blackfoot who had visited the Sun spirit and had his scar removed in such a sweatlodge.",
+    "The Blackfoot sun dance is called an OK'AN or 'coming together.' at which time all of the clans of one tribe gather and each society performs its major ceremonies for the year. These ceremonies occur in a predetermined sequence, and one society may not begin their rites until another has finished. From time to time a virtuous woman may vow to sit as a Holy Woman for four days. Such vows are usually made after the Creator has granted the woman or a member of her family a special favor. Upon completion of herfast, a center pole is 'captured' and erected and a sun dance arbor is constructed. Occasionally, a man may then be pierced and dance in front of the center pole in fulfillment of a personal vow. Unlike other Plains tribes, piercing was never the primary focus of the Blackfoot sun dance Other ceremonies, such as the sweat lodge and pipe ceremony were integral to the completion of most ceremonies.",
+    "The activities surrounding Indian doctors extended beyond that of the individual to include the community. At some public declaration announcing the intentions of an individual to pursue the office of an Indian doctor, the Local clan observed a period of sexual continence and special food restrictions (Olson 1967: 112). During subsequent spirit quests the relatives of the Indian doctor might remain at homefasting(de Laguna 1972:677). Again, when the shaman died special restrictions were placed upon the kin. Relatives of hunters and warriors were under similar restrictions while the hunt or raid was in progress."
+  )
+)
+
+kable(data, format = "markdown")
+```
 
 ## GPT Annotation Procedure
 
-We applied GPT-4.0 to a subset of annotated paragraphs (n = 225), running each variable prompt at least twice. If initial agreement with human annotations was low, we revised the prompt and re-ran the model. Once a prompt yielded satisfactory agreement, it was re-tested using the most successful version, with GPT also instructed to provide a rationale for each response across disagreements (see SI). To ensure consistency across outputs, the temperature parameter was set to 0 for all API calls, minimizing randomness of model's responses.
+We applied GPT-4o to a subset of annotated paragraphs (n = 225), running each variable prompt at least twice to asses re-test reliability. To ensure consistency across outputs, the temperature parameter was set to 0 for all API calls, minimizing randomness of model's responses. If initial agreement with human annotations was low, we revised the prompt again and re-ran the model--we never needed to run the model more than two times before running the reliability test. We instructed GPT to provide a rationale for each response across disagreements (see Table 3 and SI). 
 
-Agreement and inter-annotator reliability metrics were calculated after each round. Discrepancies between GPT outputs and human consensus annotations were reviewed manually. In several cases, GPT identified patterns overlooked by human annotators, prompting revisions to our ground truth. Notably, while our initial operationalization of Sacrifice and Charity focused narrowly on religious donation, GPT repeatedly included other forms of resource transfer, such as payments in healing and ritual contexts. These were judged valid upon review and incorporated into an updated gold standard. Final model performance was assessed using precision, recall, and F1 scores, based on alignment with this human-AI consensus benchmark.
+Agreement and inter-annotator reliability metrics were calculated after each round. Discrepancies between GPT outputs and human consensus annotations were reviewed manually. In several cases, GPT identified patterns overlooked by human annotators, prompting revisions to our 'ground truth'. Notably, while our initial operationalization of Sacrifice and Charity focused narrowly on religious donation, GPT repeatedly included other forms of resource transfer, including descriptions of payments to healers and other ritual specialists. These were determined to be 'correct' upon review and included in the human-AI adjuducated final verdict. Final model performance was assessed using precision, recall, and F1 scores, based on alignment with this human-AI consensus benchmark.
 
-For variables that had shown weaker performance during testing—such as Social and Economic Costs and Group Membership—prompts were further revised before the final model run. We then deployed the prompts across the remaining 1,015 unannotated paragraphs. Model outputs for this larger dataset were evaluated to determine the generalizability of prompt performance to unseen data.
+For variables that had shown weaker performance during testing—such as Social and Economic Costs and Group Membership—prompts were further revised before the final model run. We then deployed the prompts across the remaining 1,015 unannotated paragraphs. Model outputs for this larger dataset were evaluated to determine the generalizability of prompt performance to data that was not used in the prompt engineering phase, and to see if it could help resolve instances where human annotators disagreed.
+
+# References
