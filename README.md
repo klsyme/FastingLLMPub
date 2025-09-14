@@ -11,17 +11,17 @@ install.packages(c("dplyr", "readxl", "tidyverse", "irr", "irrCAC", "knitr", "ca
 
 Abbreviations for variables to locate r scripts and datasets-
 
-asc- Altered state of consciousness
-dei- Discomfort, exhaustion, and illness
-gen- Gender
-gm- Group membership
-lead- Leader
-lap- Time lapse
-rel- Religiosity
-sca- Sacrifice and charity
-mat- Sexual abstinence
-se- Social and economic costs
-sw- Social withdrawal
+asc- Altered state of consciousness;
+dei- Discomfort, exhaustion, and illness;
+gen- Gender;
+gm- Group membership;
+lead- Leader;
+lap or time lapse- Time lapse;
+rel- Religiosity;
+sca- Sacrifice and charity;
+mat- Sexual abstinence;
+se- Social and economic costs;
+sw- Social withdrawal;
 vl- Visions and knowledge
 
 
