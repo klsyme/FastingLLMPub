@@ -22,7 +22,7 @@ sca- Sacrifice and charity;
 mat- Sexual abstinence;
 se- Social and economic costs;
 sw- Social withdrawal;
-vl- Visions and knowledge
+vk- Visions and knowledge
 
 
 
