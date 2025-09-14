@@ -2,7 +2,7 @@ source("GPT Run.R")
 
 ## This creates a data frame where each row has one paragraph
 paragraphs <- 
-  read_excel("Costs Subset Unlisted.xlsx") |> 
+  read_excel("Datasets/Costs Subset Unlisted.xlsx") |> 
   mutate(
     Excerpt.x = str_remove_all(Excerpt.x, "\\{\\{\\d+\\}\\}"),    
     Excerpt.x = str_remove_all(Excerpt.x, "[^\x1F-\x7F]+")      
