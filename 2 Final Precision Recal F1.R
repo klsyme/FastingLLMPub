@@ -2,7 +2,7 @@ library(readxl)
 library(dplyr)
 library(caret)
 
-gend <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_gen.xlsx")
+gend <- read_excel("Datasets/disagreement_gen.xlsx")
 genf <- gend %>% filter(!is.na(gen.final))
 # Convert columns to numeric
 genf <- genf %>%
