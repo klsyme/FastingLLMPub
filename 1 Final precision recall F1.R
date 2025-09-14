@@ -6,7 +6,7 @@ library(ggplot2)
 library(reshape2)
 library(tidyr)
 
-ascd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_asc.xlsx")
+ascd <- read_excel("Datasets/disagreement_asc.xlsx")
 ascf <- ascd %>% filter(!is.na(asc.final))
 # Convert columns to numeric
 ascf <- ascf %>%
@@ -17,7 +17,7 @@ ascf <- ascf %>%
   mutate(asc.mr = ifelse(sum(c(asc.x, asc.y, asc.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-deid <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_dei.xlsx")
+deid <- read_excel("Datasets/disagreement_dei.xlsx")
 deif <- deid %>% filter(!is.na(dei.final))
 # Convert columns to numeric
 deif <- deif %>%
@@ -28,7 +28,7 @@ deif <- deif %>%
   mutate(dei.mr = ifelse(sum(c(dei.x, dei.y, dei.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-gmd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_gm.xlsx")
+gmd <- read_excel("Datasets/disagreement_gm.xlsx")
 gmf <- gmd %>% filter(!is.na(gm.final))
 # Convert columns to numeric
 gmf <- gmf %>%
@@ -39,7 +39,7 @@ gmf <- gmf %>%
   mutate(gm.mr = ifelse(sum(c(gm.x, gm.y, gm.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-lapd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_lap.xlsx")
+lapd <- read_excel("Datasets/disagreement_lap.xlsx")
 lapf <- lapd %>% filter(!is.na(lap.final))
 # Convert columns to numeric
 lapf <- lapf %>%
@@ -50,7 +50,7 @@ lapf <- lapf %>%
   mutate(lap.mr = ifelse(sum(c(time_lapse.x, time_lapse.y, lap.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-leadd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_lead.xlsx")
+leadd <- read_excel("Datasets/disagreement_lead.xlsx")
 leadf <- leadd %>% filter(!is.na(lead.final))
 # Convert columns to numeric
 leadf <- leadf %>%
@@ -61,7 +61,7 @@ leadf <- leadf %>%
   mutate(lead.mr = ifelse(sum(c(leader.x, leader.y, lead.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-matd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_mat.xlsx")
+matd <- read_excel("Datasets/disagreement_mat.xlsx")
 matf <- matd %>% filter(!is.na(mat.final))
 # Convert columns to numeric
 matf <- matf %>%
@@ -72,7 +72,7 @@ matf <- matf %>%
   mutate(mat.mr = ifelse(sum(c(mat.x, mat.y, mat.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-reld <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_rel.xlsx")
+reld <- read_excel("Datasets/disagreement_rel.xlsx")
 relf <- reld %>% filter(!is.na(rel.final))
 # Convert columns to numeric
 relf <- relf %>%
@@ -84,7 +84,7 @@ relf <- relf %>%
   ungroup()
 
 
-scad <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_sca.xlsx")
+scad <- read_excel("Datasets/disagreement_sca.xlsx")
 scaf <- scad %>% filter(!is.na(sca.final))
 # Convert columns to numeric
 scaf <- scaf %>%
@@ -95,7 +95,7 @@ scaf <- scaf %>%
   mutate(sca.mr = ifelse(sum(c(sca.x, sca.y, sca.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-sed <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_se.xlsx")
+sed <- read_excel("Datasets/disagreement_se.xlsx")
 sef <- sed %>% filter(!is.na(se.final))
 # Convert columns to numeric
 sef <- sef %>%
@@ -106,7 +106,7 @@ sef <- sef %>%
   mutate(se.mr = ifelse(sum(c(se.x, se.y, se.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-swd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_sw.xlsx")
+swd <- read_excel("Datasets/disagreement_sw.xlsx")
 swf <- swd %>% filter(!is.na(sw.final))
 # Convert columns to numeric
 swf <- swf %>%
@@ -117,7 +117,7 @@ swf <- swf %>%
   mutate(sw.mr = ifelse(sum(c(sw.x, sw.y, sw.gpt)) >= 2, 1, 0)) %>%
   ungroup()
 
-vkd <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Final Agreement Analysis/disagreement_vk.xlsx")
+vkd <- read_excel("Datasets/disagreement_vk.xlsx")
 vkf <- vkd %>% filter(!is.na(vk.final))
 # Convert columns to numeric
 vkf <- vkf %>%
