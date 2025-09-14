@@ -6,17 +6,17 @@ lead <- read_excel("Datasets/lead_updated.xlsx")
 #Remove duplicate row 205
 lead <- lead %>% 
   slice(-205)  # Removes row 205
-lap <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/laptf_updated.xlsx")
-asc <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/asctf_updated.xlsx")
-vk <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/vktf_updated.xlsx")
-dei <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/deitf_updated.xlsx")
-se <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/setf_updated.xlsx.xlsx")
-sca <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/scatf_updated.xlsx")
-sw <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/swtf_updated.xlsx")
-mat <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/mattf_updated.xlsx.xlsx")
-rel <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/reltf_updated.xlsx")
-gm <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gmtf_updated.xlsx")
-gender <- read_excel("/Users/kristensyme/Desktop/R Projects/Fasting/Leveraging the Power of LLMs copy/LLM paper/Diffs Fasting/gentf_updated.xlsx")
+lap <- read_excel("Datasets/laptf_updated.xlsx")
+asc <- read_excel("Datasets/asctf_updated.xlsx")
+vk <- read_excel("Datasets/vktf_updated.xlsx")
+dei <- read_excel("Datasets/deitf_updated.xlsx")
+se <- read_excel("Datasets/setf_updated.xlsx.xlsx")
+sca <- read_excel("Datasets/scatf_updated.xlsx")
+sw <- read_excel("Datasets/swtf_updated.xlsx")
+mat <- read_excel("Datasets/mattf_updated.xlsx.xlsx")
+rel <- read_excel("Datasets/reltf_updated.xlsx")
+gm <- read_excel("Datasets/gmtf_updated.xlsx")
+gender <- read_excel("Datasets/gentf_updated.xlsx")
 
 allsubset <- data.frame(
   Excerpt = asc$Excerpt.x,
