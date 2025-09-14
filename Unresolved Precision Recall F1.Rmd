@@ -1,0 +1,157 @@
+---
+title: "Unresolved Precision Recall F1"
+output: html_document
+date: "2025-03-30"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(readxl)  # Ensure readxl is loaded for Excel files
+library(knitr)
+library(caret) 
+library(ggplot2)
+library(reshape2)
+library(tidyr)
+
+
+knitr::opts_chunk$set(echo = TRUE)  # Ensures code chunks are displayed
+source("1 Final precision recall F1.R")
+source("2 Final Precision Recal F1.R")
+```
+
+
+```{r calculate-metrics, echo=FALSE}
+
+calculate_metrics <- function(predicted, actual) {
+  predicted <- factor(predicted, levels = levels(actual))
+  # Ensure "1" is the positive class
+  positive_class <- "1" 
+  cm <- confusionMatrix(predicted, actual, positive = positive_class)
+  precision <- cm$byClass["Pos Pred Value"]
+  recall <- cm$byClass["Sensitivity"]
+  f1_score <- ifelse(is.na(precision + recall), 0, 2 * (precision * recall) / (precision + recall))
+  return(c(precision, recall, f1_score))
+}
+
+```
+
+```{r batch processing,echo=FALSE}
+# List of datasets and variables for batch processing
+# Complete dataset list with all 11 datasets
+datasets <- list(
+  list(name = "Lead", df = leadf, vars = c("leader.y", "leader.x", "lead.gpt", "lead.mr"), 
+       target = "lead.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Lap", df = lapf, vars = c("time_lapse.y", "time_lapse.x", "lap.gpt", "lap.mr"), 
+       target = "lap.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Asc", df = ascf, vars = c("asc.y", "asc.x", "asc.gpt", "asc.mr"), 
+       target = "asc.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Vk", df = vkf, vars = c("vk.y", "vk.x", "vk.gpt", "vk.mr"), 
+       target = "vk.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Dei", df = deif, vars = c("dei.y", "dei.x", "dei.gpt", "dei.mr"), 
+       target = "dei.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Se", df = sef, vars = c("se.y", "se.x", "se.gpt", "se.mr"), 
+       target = "se.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Sca", df = scaf, vars = c("sca.y", "sca.x", "sca.gpt", "sca.mr"), 
+       target = "sca.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Sw", df = swf, vars = c("sw.y", "sw.x", "sw.gpt", "sw.mr"), 
+       target = "sw.final", method_names = c("Coder 1","Coder 2", "GPT", "Majority Rule")),
+  list(name = "Mat", df = matf, vars = c("mat.y", "mat.x", "mat.gpt", "mat.mr"), 
+       target = "mat.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Rel", df = relf, vars = c("rel.y", "rel.x", "rel.gpt", "rel.mr"), 
+       target = "rel.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule")),
+  list(name = "Gm", df = gmf, vars = c("gm.y", "gm.x", "gm.gpt", "gm.mr"), 
+       target = "gm.final", method_names = c("Coder 1", "Coder 2", "GPT", "Majority Rule"))
+)
+
+# Processing loop with error handling
+results <- data.frame()
+
+for (dataset in datasets) {
+  tryCatch({
+    df <- dataset$df
+    vars <- dataset$vars
+    target <- dataset$target
+    name <- dataset$name
+    method_names <- dataset$method_names
+    
+    # Check if all columns exist
+    missing_cols <- setdiff(c(vars, target), names(df))
+    if (length(missing_cols) > 0) {
+      warning(paste("In dataset", name, "missing columns:", paste(missing_cols, collapse=", ")))
+      next
+    }
+    
+    # Get all unique levels
+    all_levels <- unique(na.omit(unlist(c(
+      lapply(vars, function(var) levels(factor(df[[var]]))),
+      levels(factor(df[[target]]))
+    ))))
+    
+    # Convert to factors
+    df[[target]] <- factor(df[[target]], levels = all_levels)
+    for (var in vars) {
+      df[[var]] <- factor(df[[var]], levels = all_levels)
+    }
+    
+    # Calculate metrics
+    metrics <- data.frame(
+      Dataset = name,
+      Method = method_names,
+      Precision = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[1]),
+      Recall = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[2]),
+      F1 = sapply(vars, function(var) calculate_metrics(df[[var]], df[[target]])[3]),
+      stringsAsFactors = FALSE
+    )
+    
+    results <- rbind(results, metrics)
+    
+    # Print results
+    cat("\n##", name, "##\n")
+    print(kable(metrics[, -1], digits = 3, caption = paste("Metrics for", name)))
+    
+  }, error = function(e) {
+    warning(paste("Error processing dataset", name, ":", e$message))
+  })
+}
+
+# Final results
+if (nrow(results) > 0) {
+  cat("\n\n### Combined Results ###\n")
+  print(kable(results, digits = 3))
+} else {
+  cat("\nNo results produced - check for errors in datasets\n")
+}
+
+```
+
+```{r plot-metrics, echo=FALSE}
+# Function to filter out "Coder 1" from specific datasets
+filtered_results <- results %>%
+  filter(!(Dataset %in% c("Se", "Sw", "Rel", "Gm") & Method == "Coder 1"))
+
+# Convert data to long format for ggplot
+long_results <- filtered_results %>%
+  pivot_longer(cols = c("Precision", "Recall", "F1"), 
+               names_to = "Metric", 
+               values_to = "Value") %>%
+  mutate(Metric = factor(Metric, levels = c("Precision", "Recall", "F1")))  # Set correct order
+
+# Plot using color scheme
+ggplot(long_results, aes(x = Method, y = Value, fill = Metric)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Dataset, scales = "free_x") +  # Separate charts per dataset
+  labs(title = "Precision, Recall, and F1 Score by Dataset and Method",
+       x = "Method", y = "Score") +
+  scale_fill_manual(values = c("Precision" = "blue", "Recall" = "red", "F1" = "green")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
+
+```
+
+
+
+
+
+
+
+
