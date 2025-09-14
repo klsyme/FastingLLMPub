@@ -4,6 +4,8 @@ library(reshape2)
 library(dplyr)
 library(ggpubr)
 
+# Data available in Datasets in allsubset_fasting.xlsx
+
 # 1 Confusion Matrix: human consensus vs round 1 GPT subset
 
 # Define comparison pairs
