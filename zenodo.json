@@ -1,0 +1,20 @@
+.zenodo.json
+{
+  "title": "FastingLLMPub: Generating Units of Cultural Analysis",
+  "version": "1.0",
+  "description": "Code release for generating units of cultural analysis using large language models.",
+  "license": "CC-BY-4.0",
+  "authors": [
+    {
+      "name": "Kristen Syme",
+      "affiliation": "University of Leicester",
+      "orcid": "0000-0002-XXXX-XXXX"
+    }
+  ],
+  "keywords": [
+    "large language models",
+    "cross-cultural",
+    "artificial intelligence for science",
+    "text analysis"
+  ]
+}
