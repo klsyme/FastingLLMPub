@@ -1,6 +1,6 @@
 {
   "title": "FastingLLMPub: Generating Units of Cultural Analysis",
-  "version": "1.6",
+  "version": "1.7",
   "description": "Code release for generating units of cultural analysis using large language models. Corrected metadata for Zenodo deposition, version 1.5.",
   "upload_type": "software",
   "publication_date": "2025-12-18",
@@ -9,7 +9,7 @@
     {
       "name": "Syme, Kristen",
       "affiliation": "University of Leicester",
-      "orcid": "0000-0002-XXXX-XXXX"
+      "orcid": "0000-0002-5601-8897"
     }
   ],
   "keywords": [
